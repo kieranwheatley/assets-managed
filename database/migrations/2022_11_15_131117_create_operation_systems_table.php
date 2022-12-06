@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('operation_systems', function (Blueprint $table) {
+        Schema::create('operating_systems', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('companies');
         });
     }
 

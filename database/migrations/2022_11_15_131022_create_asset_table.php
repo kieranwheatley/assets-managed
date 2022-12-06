@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('assets', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
         });
     }
 

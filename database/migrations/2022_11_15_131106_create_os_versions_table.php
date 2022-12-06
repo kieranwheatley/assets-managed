@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('os_versions', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('name');
+            $table->foreignId('operating_systems');
         });
     }
 

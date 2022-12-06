@@ -14,8 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('software_assets', function (Blueprint $table) {
+            $table->foreignId('asset');
             $table->id();
-            $table->timestamps();
+            $table->foreignId('users');
         });
     }
 

@@ -15,7 +15,13 @@ return new class extends Migration
     {
         Schema::create('software_models', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('name');
+            $table->foreignId('companies');
+            $table->string('licence_metric');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->double('licence_cost');
+            $table->smallInteger('purchased_quantity');
         });
     }
 
