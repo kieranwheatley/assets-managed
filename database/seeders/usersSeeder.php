@@ -24,8 +24,7 @@ class usersSeeder extends Seeder
             'position' => Str::random(10),
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'rememberToken' => Str::random(10),
-            'timestamps' => now(),
+            'remember_token' => Str::random(10),
         ]);
         
     }

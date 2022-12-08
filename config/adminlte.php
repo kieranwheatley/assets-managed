@@ -253,7 +253,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'dashboard',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -314,22 +314,31 @@ return [
         ['header' => 'Assets'],
         [
             'text'        => 'All assets',
-            'url'         => 'admin/pages',
+            'url'         => 'assets',
             'icon'        => 'far fa-fw fa-file',
             //'label'       => 4,
             'label_color' => 'success',
-            'submenu' => [
-                [
-                    'text' => 'Hardware Assets',
-                    'url'  => '#',
-                    'icon'  => 'fa fa-laptop',
-                ],
-                [
-                    'text' => 'Software Assets',
-                    'url'  => '#',
-                    'icon' => 'fa fa-code',
-                ],
-            ],
+        ],
+        [
+            'text' => 'Hardware Assets',
+            'url'  => 'hardware',
+            'icon'  => 'fa fa-laptop',
+        ],
+        [
+            'text' => 'Software Assets',
+            'url'  => 'software',
+            'icon' => 'fa fa-code',
+        ],
+        ['header' => 'Users'],
+        [
+            'text' => 'All Users',
+            'url'  => 'users',
+            'icon' => 'fas fa-fw fa-users',
+        ],
+        [
+            'text' => 'Add User',
+            'url'  => 'admin/pages',
+            'icon' => 'fas fa-fw fa-user-plus',
         ],
         ['header' => 'account_settings'],
         [
@@ -342,23 +351,23 @@ return [
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
         ],
-        
-        ['header' => 'Alerts'],
-        [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
-        ],
+
+        // ['header' => 'Alerts'],
+        // [
+        //     'text'       => 'important',
+        //     'icon_color' => 'red',
+        //     'url'        => '#',
+        // ],
+        // [
+        //     'text'       => 'warning',
+        //     'icon_color' => 'yellow',
+        //     'url'        => '#',
+        // ],
+        // [
+        //     'text'       => 'information',
+        //     'icon_color' => 'cyan',
+        //     'url'        => '#',
+        // ],
     ],
 
     /*
