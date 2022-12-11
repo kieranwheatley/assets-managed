@@ -6,17 +6,22 @@
     <h1>Hardware Assets</h1>
 @stop
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <x-adminlte-info-box title="Assets" text="1205" icon="fas fa-lg fa-laptop" icon-theme="yellow"/>
-            </div>
-            <div class="col">
 
-                <x-adminlte-info-box title="Users" text="SOON TO BE NUMBERS HERE" icon="fas fa-lg fa-users" icon-theme="blue"/>
-            </div>    
-            {{ $hardware }}
-        </div>
-    </div>
+    <div class="flex-row d-flex flex-wrap">
+
         
+    </div>
+    <div class="flex-row d-flex flex-wrap">
+
+        @foreach ($hardware as $hardware)
+            <div class="col-md-4">
+                <x-adminlte-profile-widget name="{{ $hardware->model }}"
+                    {{-- desc="Phase: {{ ucfirst(trans($hardware->lifecycle_phase)) }}" theme="dark" layout-type="classic"> --}}
+                    desc="Assigned to: {{ $hardware->assignedUser->first_name}} {{ $hardware->assignedUser->last_name }}" theme="dark" layout-type="classic">
+                    <x-adminlte-profile-row-item icon="fas fa-fw fa-map-marker" title="{{ $hardware->locationName->name}}" text="£{{ number_format($hardware->purchase_price, 2) }}" />
+                </x-adminlte-profile-widget>
+            </div>
+        @endforeach
+    </div>
+
 @stop

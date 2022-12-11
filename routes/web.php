@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('dashboard',['users' => App\Models\User::all()]);
+    return redirect ('/dashboard');
 });
 
 Route::get('/dashboard', function () {
@@ -39,4 +39,6 @@ Route::get('/software', function () {
 
 Route::get('/hardware', function () {
     return view('hardware',['hardware' => HardwareAssets::all()]);
+    // $hardware = HardwareAssets::all();
+    // return view('hardware', compact('hardware'));
 });
