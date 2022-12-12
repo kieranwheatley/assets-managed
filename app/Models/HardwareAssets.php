@@ -18,4 +18,9 @@ class HardwareAssets extends Model
     {
         return $this->hasOne(User::class, 'id', 'users');
     }
+
+    public function manufacturer()
+    {
+        return $this->hasOne(Companies::class, 'id', 'companies');
+    }
 }

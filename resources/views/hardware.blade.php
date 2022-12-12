@@ -6,22 +6,31 @@
     <h1>Hardware Assets</h1>
 @stop
 @section('content')
-
-    <div class="flex-row d-flex flex-wrap">
-
-        
-    </div>
-    <div class="flex-row d-flex flex-wrap">
-
-        @foreach ($hardware as $hardware)
-            <div class="col-md-4">
-                <x-adminlte-profile-widget name="{{ $hardware->model }}"
-                    {{-- desc="Phase: {{ ucfirst(trans($hardware->lifecycle_phase)) }}" theme="dark" layout-type="classic"> --}}
-                    desc="Assigned to: {{ $hardware->assignedUser->first_name}} {{ $hardware->assignedUser->last_name }}" theme="dark" layout-type="classic">
-                    <x-adminlte-profile-row-item icon="fas fa-fw fa-map-marker" title="{{ $hardware->locationName->name}}" text="£{{ number_format($hardware->purchase_price, 2) }}" />
-                </x-adminlte-profile-widget>
-            </div>
-        @endforeach
-    </div>
-
+    
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Model</th>
+                <th>Serial Number</th>
+                <th>Assigned To</th>
+                <th>Location</th>
+                <th>Lifecycle</th>
+                <th>Purchase Cost</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($hardware as $hardware)
+                <tr>
+                    <td>{{ $hardware->id }}</td>
+                    <td>{{ $hardware->manufacturer->name}} {{ $hardware->model }}</td>
+                    <td>{{ $hardware->serial_number }}</td>
+                    <td>{{ $hardware->assignedUser->first_name}} {{ $hardware->assignedUser->last_name }}</td>
+                    <td>{{ $hardware->locationName->name}}</td>
+                    <td>{{ ucfirst(trans($hardware->lifecycle_phase))}}</td>
+                    <td>£{{number_format($hardware->purchase_price, 2)}}</td>
+                </tr>
+                @endforeach
+        </tbody>
 @stop

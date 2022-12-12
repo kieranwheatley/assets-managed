@@ -14,10 +14,22 @@ class usersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $users = User::paginate(3);
-        return view('users.index', compact('users'));
-    }
+
+     public function edit($id)
+     {
+            $user = User::find($id);
+            return view('edit', compact('user'));
+     }
+
+     public function update(Request $request, $id)
+     {
+            $user = User::find($id);
+            $user->first_name = $request->Input('first_name');
+            $user->last_name = $request->Input('last_name');
+            $user->email = $request->Input('email');
+            $user->position = $request->Input('position');
+            $user->save();
+            return redirect('/users')->with('success', 'User has been updated');
+     }
 
 }

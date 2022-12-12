@@ -4,6 +4,7 @@ use App\Models\HardwareAssets;
 use App\Models\SoftwareAssets;
 use App\Models\TestAssets;
 use App\Models\User;
+use App\Http\Controllers\usersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,3 +43,7 @@ Route::get('/hardware', function () {
     // $hardware = HardwareAssets::all();
     // return view('hardware', compact('hardware'));
 });
+
+Route::get('edit/{id}', 'App\Http\Controllers\usersController@edit');
+
+Route::put('update-user/{id}', 'App\Http\Controllers\usersController@update');
