@@ -23,4 +23,9 @@ class HardwareAssets extends Model
     {
         return $this->hasOne(Companies::class, 'id', 'companies');
     }
+
+    public function os()
+    {
+        return $this->hasOne(OperatingSystem::class, 'id', 'version');
+    }
 }

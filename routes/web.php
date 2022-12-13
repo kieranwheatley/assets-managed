@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HardwareAssetsController;
 use App\Models\HardwareAssets;
 use App\Models\SoftwareAssets;
 use App\Models\TestAssets;
@@ -44,6 +45,12 @@ Route::get('/hardware', function () {
     // return view('hardware', compact('hardware'));
 });
 
-Route::get('edit/{id}', 'App\Http\Controllers\usersController@edit');
+Route::get('user-edit/{id}', 'App\Http\Controllers\usersController@edit');
 
 Route::put('update-user/{id}', 'App\Http\Controllers\usersController@update');
+
+Route::get('hardware-edit/{id}',[HardwareAssetsController::class, 'edit']);
+
+Route::put('update-hardware/{id}', [HardwareAssetsController::class, 'update']);
+
+Route::get('hardware/add', [HardwareAssetsController::class, 'create']);

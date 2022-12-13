@@ -13,7 +13,7 @@
         <br>
         <div class="row">
             <div class="col">
-                <x-adminlte-input name="userID" label="User ID" value="{{ $user->id }}" fgroup-class="col-md-9" disable-feedback aria-readonly />
+                <x-adminlte-input name="userID" label="User ID" value="{{ $user->id }}" fgroup-class="col-md-9" readonly />
             </div>
             <div class="col">
             </div> 

@@ -22,6 +22,7 @@
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Position</th>
                 <th>Email</th>
@@ -31,12 +32,13 @@
         <tbody>
             @foreach ($users as $user)
                 <tr>
+                    <td>{{$user->id}}</td>
                     <td>{{$user->first_name}} {{$user->last_name}}</td>
                     <td>{{$user->position}}</td>
                     <td>{{$user->email}}</td>
                     <td>
                         {{-- <a class="btn btn-small btn-success" href="{{ URL::to('edit/' . $user->id) }}">Show this User</a> --}}
-                        <a class="btn btn-small btn-info" href="{{ url('edit/'.$user->id) }}">Edit</a>
+                        <a class="btn btn-small btn-info" href="{{ url('user-edit/'.$user->id) }}">Edit</a>
                 </tr>
             @endforeach
         </tbody>

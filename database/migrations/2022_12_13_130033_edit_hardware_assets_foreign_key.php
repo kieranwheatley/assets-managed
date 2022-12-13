@@ -13,10 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('operating_systems', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('companies');
-        });
+        //
     }
 
     /**
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('operation_systems');
+        //
     }
 };

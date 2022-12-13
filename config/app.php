@@ -43,6 +43,13 @@ return [
 
     'debug' => (bool) env('APP_DEBUG', false),
 
+
+     /*
+     Date Format 
+    */
+    'date_format' => 'd/m/Y',
+    'date_format_javascript' => 'YYYY-MM-DD',
+
     /*
     |--------------------------------------------------------------------------
     | Application URL

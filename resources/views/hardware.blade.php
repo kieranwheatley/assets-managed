@@ -3,7 +3,7 @@
 @section('title', 'Assets Managed')
 
 @section('content_header')
-    <h1>Hardware Assets</h1>
+    <h1>Hardware Assets</h1><a class="btn btn-small btn-info" href="{{ url('hardware/add') }}">Add Asset</a>
 @stop
 @section('content')
     
@@ -30,6 +30,7 @@
                     <td>{{ $hardware->locationName->name}}</td>
                     <td>{{ ucfirst(trans($hardware->lifecycle_phase))}}</td>
                     <td>£{{number_format($hardware->purchase_price, 2)}}</td>
+                    <td><a class="btn btn-small btn-info" href="{{ url('hardware-edit/'.$hardware->id) }}">Edit</a></td>
                 </tr>
                 @endforeach
         </tbody>
