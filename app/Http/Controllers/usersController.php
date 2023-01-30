@@ -32,4 +32,24 @@ class usersController extends Controller
             return redirect('/users')->with('success', 'User has been updated');
      }
 
+     public function add()
+     {
+              return view('user-add');
+     }
+
+     public function insert(Request $request)
+     {
+       $user = new User();
+       $user->first_name = $request->input('first_name');
+       $user->last_name = $request->input('last_name');
+       $user->email = $request->input('email');
+       $user->position = $request->input('position');
+       $user->password = $request->input('password');
+       $user->save();
+       return redirect('/')->with('success','User added!');
+     }
+
+
+
+
 }

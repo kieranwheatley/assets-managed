@@ -7,39 +7,55 @@
 @stop
 @section('content')
 
-    {{-- <div class="flex-row d-flex flex-wrap">
+        {{-- Setup data for datatables --}}
+@php
+$heads = [
+    'ID',
+    'First Name',
+    'Last Name', 
+    'Position',
+    'Email Address',
+    'Actions',
+    // ['label' => 'Phone', 'width' => 40],
+    // ['label' => 'Actions', 'no-export' => true, 'width' => 5],
+];
 
-        @foreach ($users as $user)
-        
-            <div class="col-md-4">
-                <x-adminlte-profile-widget name="{{$user->first_name}} {{$user->last_name}}" desc="{{$user->position}}" theme="dark"
-                    layout-type="classic">
-                    <x-adminlte-profile-row-item icon="fas fa-fw fa-envelope" title="Email" text="{{$user->email}}" url="mailto:{{$user->email}}" />
-                    </x-adminlte-profile-widget>
-                </div>
-        @endforeach
-    </div> --}}
-    <table class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Email</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($users as $user)
-                <tr>
-                    <td>{{$user->id}}</td>
-                    <td>{{$user->first_name}} {{$user->last_name}}</td>
-                    <td>{{$user->position}}</td>
-                    <td>{{$user->email}}</td>
-                    <td>
-                        {{-- <a class="btn btn-small btn-success" href="{{ URL::to('edit/' . $user->id) }}">Show this User</a> --}}
-                        <a class="btn btn-small btn-info" href="{{ url('user-edit/'.$user->id) }}">Edit</a>
-                </tr>
+$btnEdit = '<button class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit" >
+                <i class="fa fa-lg fa-fw fa-pen"></i>
+            </button>';
+$btnDelete = '<button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
+                  <i class="fa fa-lg fa-fw fa-trash"></i>
+              </button>';
+$btnDetails = '<button class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
+                   <i class="fa fa-lg fa-fw fa-eye"></i>
+               </button>';
+$data = [];
+
+function editUserBtn($user) {
+    $url = url('user-edit/' . $user->id);
+    return '<a href="' . $url . '"><button class="btn btn-xs btn-default text-primary mx-1 shadow"  title="Edit" >
+                <i class="fa fa-lg fa-fw fa-pen"></i>
+            </button></a>';
+}
+foreach ($users as $user) {
+    $data = array_merge($data,[[$user->id, $user->first_name, $user->last_name, $user->position, $user->email,'<nobr>'.editUserBtn($user).$btnDelete.'</nobr>']]);
+}
+$config = [
+    'data' => $data,
+    'order' => [[1, 'asc']],
+    'columns' => [null, null, null, ['orderable' => false]],
+];
+
+@endphp
+
+{{-- Minimal example / fill data using the component slot --}}
+<x-adminlte-datatable id="table5" :heads="$heads" :config="$config" theme="dark" striped hoverable >
+    @foreach($config['data'] as $row)
+        <tr>
+            @foreach($row as $cell)
+                <td>{!! $cell !!}</td>
             @endforeach
-        </tbody>
+        </tr>
+    @endforeach
+</x-adminlte-datatable>
 @stop

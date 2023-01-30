@@ -54,3 +54,7 @@ Route::get('hardware-edit/{id}',[HardwareAssetsController::class, 'edit']);
 Route::put('update-hardware/{id}', [HardwareAssetsController::class, 'update']);
 
 Route::get('hardware/add', [HardwareAssetsController::class, 'create']);
+
+Route::get('users/add', [usersController::class, 'add']);
+
+Route::post('insert-user', [usersController::class, 'insert']);

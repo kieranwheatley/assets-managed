@@ -337,7 +337,7 @@ return [
         ],
         [
             'text' => 'Add User',
-            'url'  => 'admin/pages',
+            'url'  => 'users/add',
             'icon' => 'fas fa-fw fa-user-plus',
         ],
         ['header' => 'account_settings'],
