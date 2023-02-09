@@ -348,7 +348,7 @@ return [
         ],
         [
             'text' => 'Add Location',
-            'url'  => 'users/add',
+            'url'  => 'locations-add',
             'icon' => 'fas fa-fw fa-user-plus',
         ],
         ['header' => 'Companies'],
@@ -359,7 +359,7 @@ return [
         ],
         [
             'text' => 'Add Company',
-            'url'  => 'users/add',
+            'url'  => 'comnpanies-add',
             'icon' => 'fas fa-fw fa-user-plus',
         ],
         ['header' => 'account_settings'],

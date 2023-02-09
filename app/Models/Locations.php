@@ -13,5 +13,7 @@ class Locations extends Model
     {
         return $this->hasMany(HardwareAssets::class, 'location', 'id');
     }
+    public $timestamps = false;
+
 
 }

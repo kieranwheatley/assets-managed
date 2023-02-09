@@ -66,3 +66,9 @@ Route::get('hardware-delete/{id}', [HardwareAssetsController::class, 'remove']);
 Route::get('/locations', function () {
     return view('locations', ['locations' => App\Models\Locations::all()]);
 });
+
+Route::get('locations-add', function () {
+    return view('locations-add');
+});
+
+Route::post('insert-location', 'App\Http\Controllers\LocationsController@insert');

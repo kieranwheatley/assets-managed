@@ -88,7 +88,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <x-adminlte-button class="btn-flat" type="submit" label="Update" theme="success"
+                    <x-adminlte-button class="btn-flat" type="submit" label="Create" theme="success"
                         icon="fas fa-lg fa-save" />
                 </div>
         </form>
