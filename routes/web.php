@@ -72,3 +72,13 @@ Route::get('locations-add', function () {
 });
 
 Route::post('insert-location', 'App\Http\Controllers\LocationsController@insert');
+
+Route::get('/companies', function () {
+    return view('companies', ['companies' => App\Models\Companies::all()]);
+});
+
+Route::get('companies-add', function () {
+    return view('companies-add');
+});
+
+Route::post('insert-company', 'App\Http\Controllers\CompaniesController@insert');

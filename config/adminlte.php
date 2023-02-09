@@ -359,7 +359,7 @@ return [
         ],
         [
             'text' => 'Add Company',
-            'url'  => 'comnpanies-add',
+            'url'  => 'companies-add',
             'icon' => 'fas fa-fw fa-user-plus',
         ],
         ['header' => 'account_settings'],
