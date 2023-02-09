@@ -31,6 +31,8 @@
             <div class="col">
                 <x-adminlte-input type="password" name="password" label="Password" fgroup-class="col-md-9" />
             </div>
+            <div class="col">
+            </div>
         </div>
 
         <div class="row">            

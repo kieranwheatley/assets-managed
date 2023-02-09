@@ -62,3 +62,7 @@ Route::get('users/add', [usersController::class, 'add']);
 Route::post('insert-user', [usersController::class, 'insert']);
 
 Route::get('hardware-delete/{id}', [HardwareAssetsController::class, 'remove']);
+
+Route::get('/locations', function () {
+    return view('locations', ['locations' => App\Models\Locations::all()]);
+});

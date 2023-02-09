@@ -302,10 +302,10 @@ return [
         ],
 
         // Sidebar items:
-        [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
-        ],
+        // [
+        //     'type' => 'sidebar-menu-search',
+        //     'text' => 'search',
+        // ],
         [
             'text' => 'blog',
             'url'  => 'admin/blog',
@@ -337,6 +337,28 @@ return [
         ],
         [
             'text' => 'Add User',
+            'url'  => 'users/add',
+            'icon' => 'fas fa-fw fa-user-plus',
+        ],
+        ['header' => 'Locations'],
+        [
+            'text' => 'All Locations',
+            'url'  => 'locations',
+            'icon' => 'fas fa-fw fa-globe',
+        ],
+        [
+            'text' => 'Add Location',
+            'url'  => 'users/add',
+            'icon' => 'fas fa-fw fa-user-plus',
+        ],
+        ['header' => 'Companies'],
+        [
+            'text' => 'All Companies',
+            'url'  => 'companies',
+            'icon' => 'fas fa-fw fa-building',
+        ],
+        [
+            'text' => 'Add Company',
             'url'  => 'users/add',
             'icon' => 'fas fa-fw fa-user-plus',
         ],
