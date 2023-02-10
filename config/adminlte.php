@@ -294,7 +294,7 @@ return [
         [
             'type'         => 'navbar-search',
             'text'         => 'search',
-            'topnav_right' => true,
+            'topnav_right' => false,
         ],
         [
             'type'         => 'fullscreen-widget',
@@ -307,18 +307,18 @@ return [
         //     'text' => 'search',
         // ],
         [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            'text' => 'Dashboard',
+            'url'  => 'dashboard',
+            'icon'  => 'fa fa-home',
         ],
         ['header' => 'Assets'],
-        [
-            'text'        => 'All assets',
-            'url'         => 'assets',
-            'icon'        => 'far fa-fw fa-file',
-            //'label'       => 4,
-            'label_color' => 'success',
-        ],
+        // [
+        //     'text'        => 'All assets',
+        //     'url'         => 'assets',
+        //     'icon'        => 'far fa-fw fa-file',
+        //     //'label'       => 4,
+        //     'label_color' => 'success',
+        // ],
         [
             'text' => 'Hardware Assets',
             'url'  => 'hardware',

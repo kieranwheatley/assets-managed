@@ -9,6 +9,8 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
         <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js"></script>
         <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css" rel="stylesheet" />
+        <script src="path/to/chartjs/dist/chart.umd.js"></script>
+
         <style>
             #map {}
 
@@ -19,8 +21,8 @@
             .marker {
                 background-image: URL('images/mapbox-icon.png');
                 background-size: cover;
-                width: 50px;
-                height: 50px;
+                width: 40px;
+                height: 40px;
                 border-radius: 50%;
                 cursor: pointer;
             }
@@ -51,13 +53,9 @@
             </div>
         </div>
     </div>
-    <div id='map' style='width: 90%; min-height: 400px; margin: auto;'></div>
+
     @php
-        // $locations = $hardware->pluck('locationName.id', 'id');
-        // dd($locations->countBy(), $hardware->pluck('locationName.id', 'model'), $hardware->pluck('locationName.name', 'id'));
         $locations = $hardware->countBy('locationName.id');
-        // $locationCounts = $hardware->pluck('locationName.id', 'id')->duplicates();
-        // $locationUnique = $hardware->pluck('locationName.id', 'id')->unique();
         $newLocations = [];
         foreach ($locations as $key => $value) {
             $newLocations[] = [
@@ -90,9 +88,38 @@
         
         $final_data = json_encode($new_data, JSON_PRETTY_PRINT);
         $decoded = json_decode($final_data, true);
-        //@ddd($final_data);
-        //print_r($final_data);
     @endphp
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Assets Map</h3>
+
+                        <div class="card-tools">
+                            <!-- This will cause the card to maximize when clicked -->
+                            <button type="button" class="btn btn-tool" data-card-widget="maximize"><i
+                                    class="fas fa-expand"></i></button>
+                            <!-- This will cause the card to collapse when clicked -->
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                    class="fas fa-minus"></i></button>
+                            <!-- This will cause the card to be removed when clicked -->
+                            {{-- <button type="button" class="btn btn-tool" data-card-widget="remove"><i
+                            class="fas fa-times"></i></button> --}}
+                        </div>
+                        <!-- /.card-tools -->
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div id='map' style='width: 100%; min-height: 500px; margin: auto;'></div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+
+        </div>
+    </div>
 
     <script>
         mapboxgl.accessToken =
@@ -105,14 +132,9 @@
             style: 'mapbox://styles/mapbox/satellite-streets-v12',
             accessToken: 'pk.eyJ1Ijoia2llcmFudzEyMyIsImEiOiJjbGRvbmlwZWowMWh0M25vNHpqM2l2aHNkIn0.LK_Zzg5x6OGQG6AJjMAIdQ'
         });
-        // const geojson = @json($final_data);
-        // console.log(geojson);
         const geojson = @json($decoded);
         console.log(geojson);
-
-        // add markers to map
         for (const feature of geojson.features) {
-            // create a HTML element for each feature
             const el = document.createElement('div');
             el.className = 'marker';
 
@@ -123,13 +145,12 @@
                     return 'asset';
                 }
             }
-            // make a marker for each feature and add it to the map
             new mapboxgl.Marker(el)
                 .setLngLat(feature.geometry.coordinates)
                 .setPopup(
                     new mapboxgl.Popup({
                         offset: 25
-                    }) // add popups
+                    })
                     .setHTML(
                         `<h3>${feature.properties.name}</h3><p>${feature.properties.description} ${assetCountDesc()} assigned to this location.</p>`
                     )
