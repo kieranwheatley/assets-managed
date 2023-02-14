@@ -56,6 +56,18 @@ class HardwareAssetsController extends Controller
               $hardware->companies = $request->Input('company');
               $hardware->model = $request->Input('model');
               $hardware->serial_number = $request->Input('serial_number');
+              if (str_contains(request('purchase_date'), '-')) 
+              {
+                     $hardware->purchase_date = "test";
+              }
+              else
+              {
+                     $hardware->purchase_date = Carbon::createFromFormat('m-d-Y', request('purchase_date'));
+              }
+              // if (str_contains(request('purchase_date'), '-')){
+              // {
+              //        $hardware->purchase_date = Carbon::createFromFormat('m-d-Y', request('purchase_date'));
+              // }}
               $hardware->purchase_date = Carbon::createFromFormat('m/d/Y', $request->Input('purchase_date'));
               $hardware->warranty_date = Carbon::createFromFormat('m/d/Y', $request->Input('warranty_date'));
               $hardware->purchase_price = str_replace(',', '', $request->Input('purchase_price'));

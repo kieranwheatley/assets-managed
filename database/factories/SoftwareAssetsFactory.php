@@ -17,6 +17,7 @@ class SoftwareAssetsFactory extends Factory
     public function definition()
     {
         return [
+            
             //
         ];
     }

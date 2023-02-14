@@ -17,6 +17,7 @@ class OperatingSystemFactory extends Factory
     public function definition()
     {
         return [
+            
             //
         ];
     }
