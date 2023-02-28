@@ -1,7 +1,6 @@
 @extends('adminlte::page')
 
 @section('title', 'Admin Dashboard')
-
 @section('content_header')
     <h1>Dashboard</h1>
 
@@ -50,6 +49,12 @@
 
                 <x-adminlte-info-box title="Users" text="{{ $user_count }}" icon="fas fa-lg fa-users"
                     icon-theme="blue" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <x-adminlte-info-box title="Unencrypted Devices" text="{{ $unencrypted }}/{{ $hardware_count }}"
+                    icon="fa fa-exclamation-triangle" icon-theme="red" />
             </div>
         </div>
     </div>

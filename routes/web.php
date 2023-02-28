@@ -24,7 +24,12 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard', ['users' => App\Models\User::all(), 'user_count' => User::count(), 'software_count' => SoftwareAssets::count(), 'hardware_count' => HardwareAssets::count(), 'hardware' => HardwareAssets::all()]);
+    return view('dashboard', ['users' => App\Models\User::all(), 
+    'user_count' => User::count(), 
+    'software_count' => SoftwareAssets::count(), 
+    'hardware_count' => HardwareAssets::count(), 
+    'hardware' => HardwareAssets::all(),
+    'unencrypted' => HardwareAssets::where('encryption_status', '=', 'Not Encrypted')->count()]);
 });
 
 Route::get('/users', function () {
