@@ -19,6 +19,8 @@
                         fgroup-class="col-md-9" readonly />
                 </div>
                 <div class="col">
+                    <x-adminlte-input name="host_name" label="Host Name" value="{{ $hardware->host_name }}"
+                        fgroup-class="col-md-9" readonly />
                 </div>
             </div>
             <div class="row">
@@ -110,10 +112,29 @@
                 </div>
             </div>
             <div class="row">
-
                 <div class="col">
-                    <x-adminlte-button class="btn-flat" type="submit" label="Update" theme="success"
-                        icon="fas fa-lg fa-save" />
+                    <x-adminlte-input name="product_id" label="Product ID" value="{{ $hardware->product_id }}"
+                        fgroup-class="col-md-9" readonly />
+                </div>
+                <div class="col">
+                    <x-adminlte-input name="last_boot_time" label="Last Boot Time" value="{{ $hardware->last_boot_time }}"
+                        fgroup-class="col-md-9" readonly />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <x-adminlte-input name="encryption_status" label="Device Encryption Status"
+                        value="{{ $hardware->encryption_status }}" fgroup-class="col-md-9" readonly />
+                </div>
+                <div class="col">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="col">
+                        <x-adminlte-button class="btn-flat" type="submit" label="Update" theme="success"
+                            icon="fas fa-lg fa-save" fgroup-class="col-md-9" />
+                    </div>
                 </div>
         </form>
     </div>

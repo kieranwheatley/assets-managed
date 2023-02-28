@@ -85,4 +85,28 @@ class HardwareAssetsController extends Controller
               $hardware->delete();
               return redirect('/hardware')->with('success', 'Asset has been removed');
        }
+
+       function add() 
+       {
+              $hardware = new HardwareAssets();
+              $hardware->asset = "1";
+              $hardware->companies = "1";
+              $hardware->model = request('model');
+              $hardware->serial_number = request('serial_number');
+              $hardware->purchase_price = "0.00";
+              $hardware->version = "1";
+              $hardware->lifecycle_phase = 'active';
+              $hardware->location = "1";
+              $hardware->host_name = request('host_name');
+              $hardware->product_id = request('product_id');
+              $hardware->last_boot_time = request('last_boot_time');
+              $hardware->purchase_date = Carbon::now();
+              $hardware->warranty_date = Carbon::now();
+              $hardware->encryption_status = request('encryption_status');
+              $hardware->users = "2";
+              $hardware->save();
+
+              logger("Test");
+              return ["Result" => "Success"];
+       }
 }

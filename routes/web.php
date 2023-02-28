@@ -82,3 +82,4 @@ Route::get('companies-add', function () {
 });
 
 Route::post('insert-company', 'App\Http\Controllers\CompaniesController@insert');
+
