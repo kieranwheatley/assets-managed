@@ -92,7 +92,7 @@ class HardwareAssetsController extends Controller
               $hardware->asset = "1";
               $hardware->companies = "1";
               $hardware->model = request('model');
-              $hardware->serial_number = request('serial_number');
+              $hardware->serial_number = "19549-49503-494390-MA";
               $hardware->purchase_price = "0.00";
               $hardware->version = "1";
               $hardware->lifecycle_phase = 'active';
