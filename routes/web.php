@@ -10,6 +10,7 @@ use App\Http\Controllers\usersController;
 use App\Models\Locations;
 use App\Models\Companies;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,12 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/approval', 'HomeController@approval')->name('approval');
+    Route::get('/home', 'HomeController@index')->name('home');
+});
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -45,7 +52,7 @@ Route::get('/dashboard', function () {
     'hardware_count' => HardwareAssets::count(), 
     'hardware' => HardwareAssets::all(),
     'unencrypted' => HardwareAssets::where('encryption_status', '=', 'Not Encrypted')->count()]);
-});
+})->name('home')->middleware('auth');
 
 Route::get('/users', function () {
     return view('users', ['users' => App\Models\User::all()]);
@@ -61,8 +68,6 @@ Route::get('/software', function () {
 
 Route::get('/hardware', function () {
     return view('hardware', ['hardware' => HardwareAssets::all()]);
-    // $hardware = HardwareAssets::all();
-    // return view('hardware', compact('hardware'));
 })->name('hardware')->middleware('auth');
 
 Route::get('user-edit/{id}', 'App\Http\Controllers\usersController@edit');

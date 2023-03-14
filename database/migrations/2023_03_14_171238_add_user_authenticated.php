@@ -8,28 +8,25 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
-        //
         Schema::table('users', function (Blueprint $table) {
             
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->boolean('authenticated')->default(false);
 
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
         //
-        Schema::table('users', function (Blueprint $table) {
-            
-            $table->dropColumn('name');
-
-        });
     }
 };
