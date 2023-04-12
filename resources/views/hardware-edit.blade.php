@@ -97,18 +97,21 @@
                             selected="{{ $hardware->lifecycle_phase }}" />
                     </x-adminlte-select>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col">
                     <x-adminlte-select name="location" label="Location" fgroup-class="col-md-9">
                         <x-adminlte-options :options="$locations" placeholder="{{ $hardware->locationName->name }}"
                             selected="{{ $hardware->locationName->id }}" />
                     </x-adminlte-select>
                 </div>
+            </div>
+            <div class="row">
+
                 <div class="col">
                     <x-adminlte-input name="assigned_to" label="Assigned To"
                         value="{{ $hardware->assignedUser->first_name }} {{ $hardware->assignedUser->last_name }}"
                         fgroup-class="col-md-9" disable-feedback />
+                </div>
+                <div class="col">
                 </div>
             </div>
             <div class="row">
@@ -128,7 +131,7 @@
                 </div>
                 <div class="col">
 
-                    <x-adminlte-select name="has_CVE" label="CVE detected?" fgroup-class="col-md-9">
+                    <x-adminlte-select name="has_CVE" label="CVE detected?" fgroup-class="col-md-9" disabled>
                         <x-adminlte-options :options="[
                             '1' => 'CVE detected',
                             '0' => 'No CVE detected',

@@ -91,16 +91,17 @@
         </div>
         <div class="row">
             <div class="col">
-                <x-adminlte-info-box title="Unencrypted Devices" text="{{ $unencrypted }}/{{ $hardware_count }}"
+                <x-adminlte-info-box title="Unencrypted devices" text="{{ $unencrypted }}/{{ $hardware_count }}"
                     icon="fa fa-unlock" icon-theme="red" />
             </div>
             <div class="col">
-                <x-adminlte-info-box title="Unsynced devices" text="{{ $last_boot_time }} devices not seen for 28+ days."
+                <x-adminlte-info-box title="Unsynced devices" text="{{ $last_boot_time }} devices not seen for 28+ days"
                     icon="fa fa-calendar" icon-theme="red" />
             </div>
             <div class="col">
-                <x-adminlte-info-box title="Unprotected Devices" text="{{ $unencrypted }}/{{ $hardware_count }}"
-                    icon="fa fa-exclamation-triangle" icon-theme="red" />
+                <x-adminlte-info-box title="Potentially vulnerable devices"
+                    text="{{ $vulnerabilities }} device(s) has known CVEs" icon="fa fa-exclamation-triangle"
+                    icon-theme="red" />
             </div>
         </div>
     </div>
@@ -188,7 +189,7 @@
                             15.05,
                             ['get', 'min_height']
                         ],
-                        'fill-extrusion-opacity': 0.8
+                        'fill-extrusion-opacity': .9
                     }
                 },
                 labelLayerId
