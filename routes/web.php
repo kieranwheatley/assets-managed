@@ -51,6 +51,7 @@ Route::get('/dashboard', function () {
     'software_count' => SoftwareAssets::count(), 
     'hardware_count' => HardwareAssets::count(), 
     'hardware' => HardwareAssets::all(),
+    'last_boot_time' => HardwareAssets::where('last_boot_time', '<', now()->subDays(28))->count(),
     'unencrypted' => HardwareAssets::where('encryption_status', '=', 'Not Encrypted')->count()]);
 })->name('home')->middleware('auth');
 

@@ -80,12 +80,12 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col">
+                {{-- <div class="col">
                     <x-adminlte-select name="operating_system" label="Operating System" fgroup-class="col-md-9">
                         <x-adminlte-options :options="$operating_systems" placeholder="{{ $hardware->os->os_name }}"
                             selected="{{ $hardware->os->id }}" />
                     </x-adminlte-select>
-                </div>
+                </div> --}}
                 <div class="col">
                     <x-adminlte-select name="lifecycle_phase" label="Lifecycle Phase" fgroup-class="col-md-9">
                         <x-adminlte-options :options="[
@@ -94,7 +94,7 @@
                             'disposed' => 'Disposed',
                         ]"
                             placeholder="{{ ucfirst(trans($hardware->lifecycle_phase)) }}"
-                            selected="{{ $hardware->os->id }}" />
+                            selected="{{ $hardware->lifecycle_phase }}" />
                     </x-adminlte-select>
                 </div>
             </div>

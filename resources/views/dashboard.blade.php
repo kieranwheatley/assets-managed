@@ -95,8 +95,8 @@
                     icon="fa fa-unlock" icon-theme="red" />
             </div>
             <div class="col">
-                <x-adminlte-info-box title="Unsynced devices" text="2 devices not seen for 28+ days." icon="fa fa-calendar"
-                    icon-theme="red" />
+                <x-adminlte-info-box title="Unsynced devices" text="{{ $last_boot_time }} devices not seen for 28+ days."
+                    icon="fa fa-calendar" icon-theme="red" />
             </div>
             <div class="col">
                 <x-adminlte-info-box title="Unprotected Devices" text="{{ $unencrypted }}/{{ $hardware_count }}"

@@ -10,11 +10,7 @@
 
     {{-- Setup data for datatables --}}
     @php
-        $heads = [
-            'ID',
-            'Company Name',
-            'Actions',
-        ];
+        $heads = ['ID', 'Company Name', 'Actions'];
         
         $btnEdit = '<button class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit" >
                         <i class="fa fa-lg fa-fw fa-pen"></i>
@@ -51,13 +47,13 @@
         $config = [
             'data' => $data,
             'order' => [[1, 'asc']],
-            'columns' => [null, null, null, ['orderable' => false]],
+            'columns' => [null, null, ['orderable' => true]],
         ];
         
     @endphp
 
     {{-- Minimal example / fill data using the component slot --}}
-    <x-adminlte-datatable id="table5" :heads="$heads" :config="$config" theme="dark" striped hoverable>
+    <x-adminlte-datatable id="companies_table" :heads="$heads" :config="$config" theme="light" striped hoverable>
         @foreach ($config['data'] as $row)
             <tr>
                 @foreach ($row as $cell)

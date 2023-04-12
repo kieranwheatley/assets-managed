@@ -46,14 +46,14 @@
         }
         $config = [
             'data' => $data,
-            'order' => [[1, 'asc']],
-            'columns' => [null, null, null, ['orderable' => false]],
+            'order' => [[0, 'asc']],
+            'columns' => [null, null, null, null, null, null, null, null, ['orderable' => true]],
         ];
         
     @endphp
 
     {{-- Minimal example / fill data using the component slot --}}
-    <x-adminlte-datatable id="table5" :heads="$heads" :config="$config" theme="light" striped hoverable>
+    <x-adminlte-datatable id="locations_table" :heads="$heads" :config="$config" theme="light" striped hoverable>
         @foreach ($config['data'] as $row)
             <tr>
                 @foreach ($row as $cell)
