@@ -127,8 +127,18 @@
                         value="{{ $hardware->encryption_status }}" fgroup-class="col-md-9" readonly />
                 </div>
                 <div class="col">
+
+                    <x-adminlte-select name="has_CVE" label="CVE detected?" fgroup-class="col-md-9">
+                        <x-adminlte-options :options="[
+                            '1' => 'CVE detected',
+                            '0' => 'No CVE detected',
+                        ]" placeholder="{{ ucfirst(trans($hardware->has_CVE)) }}"
+                            selected="{{ $hardware->has_CVE }}" />
+                    </x-adminlte-select>
                 </div>
+
             </div>
+
             <div class="row">
                 <div class="col">
                     <div class="col">
@@ -136,6 +146,7 @@
                             icon="fas fa-lg fa-save" fgroup-class="col-md-9" />
                     </div>
                 </div>
+            </div>
         </form>
     </div>
 

@@ -10,10 +10,18 @@ use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use App\Models\HardwareAssets;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Http;
 
 class HardwareAssetsController extends Controller
 {
        //
+       public function checkCVE($company, $model)
+       {
+              $response = Http::get('https://services.nvd.nist.gov/rest/json/cves/2.0', [
+              'keywordSearch' => $company . " " . $model,]);
+              return $response->json();
+       }
+
        public function edit($id)
        {
               $hardware = HardwareAssets::find($id);
@@ -41,10 +49,30 @@ class HardwareAssetsController extends Controller
               $hardware->purchase_date = Carbon::createFromFormat('m/d/Y', request('purchase_date'));
               $hardware->warranty_date = Carbon::createFromFormat('m/d/Y', request('warranty_date'));
               $hardware->purchase_price = str_replace(',', '', request('purchase_price'));
-              $hardware->version = request('operating_system');
+              //$hardware->version = request('operating_system');
+              $hardware->version = "1";
               $hardware->lifecycle_phase = request('lifecycle_phase');
               $hardware->location = request('location');
               $hardware->users = request('assigned_to');
+
+              $company_name = Companies::where('id', request('company'))->get();
+              $company = $company_name[0]->name;
+
+              $response = $this->checkCVE($company, request('model'), request('serial_number'));
+              //dd($response);
+              if ($response['totalResults'] > 0)
+              {
+                     $hardware->has_CVE = true;
+                     $hardware->CVE_details = json_encode($response['vulnerabilities']);
+                     //$hardware->highest_CVE_severity = $response['result']['CVE_Items'][0]['impact']['baseMetricV3']['cvssV3']['baseSeverity'];
+              }
+              else
+              {
+                     $hardware->has_CVE = false;
+                     $hardware->CVE_details = null;
+                     $hardware->highest_CVE_severity = null;
+              }
+              //dd($hardware->CVE_details);
               $hardware->save();
               return redirect('/hardware')->with('success', 'Hardware asset has been added');
        }
@@ -109,4 +137,6 @@ class HardwareAssetsController extends Controller
               logger("Test");
               return ["Result" => "Success"];
        }
+
+       
 }
