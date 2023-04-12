@@ -22,18 +22,18 @@ use App\Http\Controllers\HomeController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::middleware(['auth'])->group(function () {
-    Route::get('/approval', 'HomeController@approval')->name('approval');
-    Route::get('/home', 'HomeController@index')->name('home');
-});
-
-
 Route::get('/', function () {
     return view('welcome');
 });
 
 Auth::routes();
+
+
+Route::get('/approval', function () {
+    return view ('approval');
+})->name('approval')->middleware('auth');
+
+
 
 Route::get('/', function () {
     return redirect('/dashboard');

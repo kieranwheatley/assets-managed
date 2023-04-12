@@ -38,6 +38,41 @@
         </style>
     </head>
 @stop
+@php
+    $locations = $hardware->countBy('locationName.id');
+    $newLocations = [];
+    foreach ($locations as $key => $value) {
+        $newLocations[] = [
+            'id' => $key,
+            'name' => App\Models\Locations::find($key)->name,
+            'latitude' => App\Models\Locations::find($key)->latitude,
+            'longitude' => App\Models\Locations::find($key)->longitude,
+            'assetCount' => $value,
+        ];
+    }
+    
+    $jsonData = json_encode($newLocations);
+    $original_data = json_decode($jsonData, true);
+    $features = [];
+    foreach ($original_data as $key => $value) {
+        $features[] = [
+            'type' => 'Feature',
+            'properties' => ['name' => $value['name'], 'description' => $value['assetCount']],
+            'geometry' => [
+                'type' => 'Point',
+                'coordinates' => [floatval($value['longitude']), floatval($value['latitude'])],
+            ],
+        ];
+    }
+    
+    $new_data = [
+        'type' => 'FeatureCollection',
+        'features' => $features,
+    ];
+    
+    $final_data = json_encode($new_data, JSON_PRETTY_PRINT);
+    $decoded = json_decode($final_data, true);
+@endphp
 @section('content')
     <div class="container">
         <div class="row">
@@ -46,54 +81,29 @@
                     icon-theme="yellow" />
             </div>
             <div class="col">
-
                 <x-adminlte-info-box title="Users" text="{{ $user_count }}" icon="fas fa-lg fa-users"
                     icon-theme="blue" />
+            </div>
+            <div class="col">
+                <x-adminlte-info-box title="Locations with assets" text="{{ count($newLocations) }}" icon="fa fa-globe"
+                    icon-theme="green" />
             </div>
         </div>
         <div class="row">
             <div class="col">
                 <x-adminlte-info-box title="Unencrypted Devices" text="{{ $unencrypted }}/{{ $hardware_count }}"
+                    icon="fa fa-unlock" icon-theme="red" />
+            </div>
+            <div class="col">
+                <x-adminlte-info-box title="Unsynced devices" text="2 devices not seen for 28+ days." icon="fa fa-calendar"
+                    icon-theme="red" />
+            </div>
+            <div class="col">
+                <x-adminlte-info-box title="Unprotected Devices" text="{{ $unencrypted }}/{{ $hardware_count }}"
                     icon="fa fa-exclamation-triangle" icon-theme="red" />
             </div>
         </div>
     </div>
-
-    @php
-        $locations = $hardware->countBy('locationName.id');
-        $newLocations = [];
-        foreach ($locations as $key => $value) {
-            $newLocations[] = [
-                'id' => $key,
-                'name' => App\Models\Locations::find($key)->name,
-                'latitude' => App\Models\Locations::find($key)->latitude,
-                'longitude' => App\Models\Locations::find($key)->longitude,
-                'assetCount' => $value,
-            ];
-        }
-        
-        $jsonData = json_encode($newLocations);
-        $original_data = json_decode($jsonData, true);
-        $features = [];
-        foreach ($original_data as $key => $value) {
-            $features[] = [
-                'type' => 'Feature',
-                'properties' => ['name' => $value['name'], 'description' => $value['assetCount']],
-                'geometry' => [
-                    'type' => 'Point',
-                    'coordinates' => [floatval($value['longitude']), floatval($value['latitude'])],
-                ],
-            ];
-        }
-        
-        $new_data = [
-            'type' => 'FeatureCollection',
-            'features' => $features,
-        ];
-        
-        $final_data = json_encode($new_data, JSON_PRETTY_PRINT);
-        $decoded = json_decode($final_data, true);
-    @endphp
     <div class="container">
         <div class="row">
             <div class="col">
@@ -132,8 +142,8 @@
 
         let map = new mapboxgl.Map({
             container: 'map',
-            center: [-3.287018, 54.35594511],
-            zoom: 5,
+            center: [-4.139329067763081, 50.37523227813306],
+            zoom: 16.5,
             style: 'mapbox://styles/mapbox/satellite-streets-v12',
             accessToken: 'pk.eyJ1Ijoia2llcmFudzEyMyIsImEiOiJjbGRvbmlwZWowMWh0M25vNHpqM2l2aHNkIn0.LK_Zzg5x6OGQG6AJjMAIdQ'
         });
