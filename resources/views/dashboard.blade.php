@@ -9,6 +9,8 @@
         <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js"></script>
         <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css" rel="stylesheet" />
         <script src="path/to/chartjs/dist/chart.umd.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
 
         <style>
             #map {}
@@ -100,7 +102,7 @@
             </div>
             <div class="col">
                 <x-adminlte-info-box title="Potentially vulnerable devices"
-                    text="{{ $vulnerabilities }} device(s) has known CVEs" icon="fa fa-exclamation-triangle"
+                    text="{{ $vulnerabilities }} device(s) have known CVEs" icon="fa fa-exclamation-triangle"
                     icon-theme="red" />
             </div>
         </div>
@@ -113,30 +115,50 @@
                         <h3 class="card-title">Assets Map</h3>
 
                         <div class="card-tools">
-                            <!-- This will cause the card to maximize when clicked -->
                             <button type="button" class="btn btn-tool" data-card-widget="maximize"><i
                                     class="fas fa-expand"></i></button>
-                            <!-- This will cause the card to collapse when clicked -->
                             <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
                                     class="fas fa-minus"></i></button>
-                            <!-- This will cause the card to be removed when clicked -->
-                            {{-- <button type="button" class="btn btn-tool" data-card-widget="remove"><i
-                            class="fas fa-times"></i></button> --}}
                         </div>
-                        <!-- /.card-tools -->
                     </div>
-                    <!-- /.card-header -->
                     <div class="card-body">
                         <div id='map' style='width: 100%; min-height: 500px; margin: auto;'></div>
                     </div>
-                    <!-- /.card-body -->
                 </div>
-                <!-- /.card -->
             </div>
 
         </div>
     </div>
 
+    <body>
+        <canvas id="thisChart" style="width:100%;max-width:700px"></canvas>
+
+        <script>
+            var xValues = ["Encrypted", "Unencrypted"];
+            var yValues = [{{ $unencrypted }}, {{ $hardware_count }}];
+            var barColors = [
+                "green",
+                "red"
+            ];
+
+            new Chart("thisChart", {
+                type: "pie",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues
+                    }]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: "Device Encryption Status"
+                    }
+                }
+            });
+        </script>
+    </body>
     <script>
         mapboxgl.accessToken =
             'pk.eyJ1Ijoia2llcmFudzEyMyIsImEiOiJjbGRvbmlwZWowMWh0M25vNHpqM2l2aHNkIn0.LK_Zzg5x6OGQG6AJjMAIdQ';
@@ -149,15 +171,11 @@
             accessToken: 'pk.eyJ1Ijoia2llcmFudzEyMyIsImEiOiJjbGRvbmlwZWowMWh0M25vNHpqM2l2aHNkIn0.LK_Zzg5x6OGQG6AJjMAIdQ'
         });
         map.on('style.load', () => {
-            // Insert the layer beneath any symbol layer.
             const layers = map.getStyle().layers;
             const labelLayerId = layers.find(
                 (layer) => layer.type === 'symbol' && layer.layout['text-field']
             ).id;
 
-            // The 'building' layer in the Mapbox Streets
-            // vector tileset contains building height data
-            // from OpenStreetMap.
             map.addLayer({
                     'id': 'add-3d-buildings',
                     'source': 'composite',
@@ -168,9 +186,6 @@
                     'paint': {
                         'fill-extrusion-color': '#aaa',
 
-                        // Use an 'interpolate' expression to
-                        // add a smooth transition effect to
-                        // the buildings as the user zooms in.
                         'fill-extrusion-height': [
                             'interpolate',
                             ['linear'],
@@ -227,4 +242,5 @@
         });
         map.addControl(nav, 'bottom-right');
     </script>
+
 @stop

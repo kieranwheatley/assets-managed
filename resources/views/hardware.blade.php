@@ -10,19 +10,7 @@
 
     {{-- Setup data for datatables --}}
     @php
-        $heads = [
-            'ID',
-            'Manufacturer',
-            'Model',
-            'Serial Number',
-            'Assigned To',
-            'Location',
-            'Lifecycle Phase',
-            'Purchase Cost',
-            'Actions',
-            // ['label' => 'Phone', 'width' => 40],
-            // ['label' => 'Actions', 'no-export' => true, 'width' => 5],
-        ];
+        $heads = ['ID', 'Manufacturer', 'Model', 'Serial Number', 'Assigned To', 'Location', 'Lifecycle Phase', 'Purchase Cost', 'Known CVEs', 'Actions'];
         
         $btnEdit = '<button class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit" >
                         <i class="fa fa-lg fa-fw fa-pen"></i>
@@ -54,12 +42,15 @@
                       </button></a>';
         }
         foreach ($hardware as $hardware) {
-            $data = array_merge($data, [[$hardware->id, $hardware->manufacturer->name, $hardware->model, $hardware->serial_number, $hardware->assignedUser->first_name, $hardware->locationName->name, ucfirst(trans($hardware->lifecycle_phase)), number_format($hardware->purchase_price, 2), '<nobr>' . editHardwareBtn($hardware) . deleteHardwareBtn($hardware) . '</nobr>']]);
+            $has_CVE = $hardware->has_CVE ? 'Yes' : 'No';
+            $full_name = $hardware->assignedUser->first_name . ' ' . $hardware->assignedUser->last_name;
+            $cost = '£' . number_format($hardware->purchase_price, 2);
+            $data = array_merge($data, [[$hardware->id, $hardware->manufacturer->name, $hardware->model, $hardware->serial_number, $full_name, $hardware->locationName->name, ucfirst(trans($hardware->lifecycle_phase)), $cost, $has_CVE, '<nobr>' . editHardwareBtn($hardware) . deleteHardwareBtn($hardware) . '</nobr>']]);
         }
         $config = [
             'data' => $data,
             'order' => [[0, 'asc']],
-            'columns' => [null, null, null, null, null, null, null, null, ['orderable' => true]],
+            'columns' => [null, null, null, null, null, null, null, null, null, ['orderable' => true]],
         ];
         
     @endphp
@@ -67,7 +58,7 @@
     {{-- Minimal example / fill data using the component slot --}}
     <x-adminlte-datatable id="hardware_table" :heads="$heads" :config="$config" theme="light" striped hoverable>
         @foreach ($config['data'] as $row)
-            <tr>
+            <tr class="clickable " onclick="{{ url('hardware/add') }}">
                 @foreach ($row as $cell)
                     <td>{!! $cell !!}</td>
                 @endforeach
