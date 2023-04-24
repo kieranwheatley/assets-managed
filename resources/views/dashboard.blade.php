@@ -10,6 +10,9 @@
         <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css" rel="stylesheet" />
         <script src="path/to/chartjs/dist/chart.umd.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+        <link href="{{ asset('resources/css/app.css') }}" rel="stylesheet">
+        <script type="text/javascript" src="{{ asset('resources/js/app.js') }}"></script>
+
 
 
         <style>
@@ -66,16 +69,58 @@
             ],
         ];
     }
+    $location_names = [];
+    $location_counts = [];
+    foreach ($newLocations as $location) {
+        $location_names[] = $location['name'];
+        $location_counts[] = $location['assetCount'];
+    }
     
     $new_data = [
         'type' => 'FeatureCollection',
         'features' => $features,
     ];
-    
     $final_data = json_encode($new_data, JSON_PRETTY_PRINT);
     $decoded = json_decode($final_data, true);
 @endphp
 @section('content')
+    <div class="container">
+        <div class="row">
+            <div class="col" style="width:33%;float: left;">
+                <canvas id="encryption_chart"></canvas>
+            </div>
+            <div class="col" style="width:33%;float: right;">
+                <canvas id="lifecycle_chart"></canvas>
+            </div>
+            <div class="col" style="width:33%;float: centre;">
+                <canvas id="new_Chart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Assets Map</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="maximize"><i
+                                    class="fas fa-expand"></i></button>
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                    class="fas fa-minus"></i></button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id='map' style='width: 100%; min-height: 500px; margin: auto;'></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <div class="container">
         <div class="row">
             <div class="col">
@@ -107,31 +152,9 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title">Assets Map</h3>
-
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="maximize"><i
-                                    class="fas fa-expand"></i></button>
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
-                                    class="fas fa-minus"></i></button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div id='map' style='width: 100%; min-height: 500px; margin: auto;'></div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
 
     <body>
-        <canvas id="thisChart" style="width:100%;max-width:700px"></canvas>
+
 
         <script>
             var xValues = ["Encrypted", "Unencrypted"];
@@ -141,8 +164,8 @@
                 "red"
             ];
 
-            new Chart("thisChart", {
-                type: "pie",
+            new Chart("encryption_chart", {
+                type: "doughnut",
                 data: {
                     labels: xValues,
                     datasets: [{
@@ -152,6 +175,73 @@
                 },
                 options: {
                     title: {
+                        animation: true,
+                        animationEasing: "easeOutSine",
+                        percentageInnerCutout: 60,
+                        segmentShowStroke: false,
+                        display: true,
+                        text: "Device Encryption Status"
+                    }
+                }
+            });
+            var xValues = ["Encrypted", "Unencrypted"];
+            var yValues = [{{ $unencrypted }}, {{ $hardware_count }}];
+            var barColors = [
+                "green",
+                "red"
+            ];
+
+            // new Chart("lifecycle_chart", {
+            //     type: "doughnut",
+            //     data: {
+            //         labels: xValues,
+            //         datasets: [{
+            //             backgroundColor: barColors,
+            //             data: yValues
+            //         }]
+            //     },
+            //     options: {
+            //         title: {
+            //             animation: true,
+            //             animationEasing: "easeOutSine",
+            //             percentageInnerCutout: 60,
+            //             segmentShowStroke: false,
+            //             display: true,
+            //             text: "Devices by Lifecycle Status"
+            //         }
+            //     }
+            // });
+
+            // var names = [@json($location_names)];
+            // names = JSON.stringify(names);
+            // console.log(names);
+            // var counts = [@json($location_counts)];
+            // counts = JSON.stringify(counts);
+            // var xValues = names.jsonarray.map(function(e) {
+            //     return e.name;
+
+            // var yValues = [counts];
+
+            // var barColors = [
+            //     "green",
+            //     "red"
+            // ];
+
+            new Chart("new_Chart", {
+                type: "doughnut",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues
+                    }]
+                },
+                options: {
+                    title: {
+                        animation: true,
+                        animationEasing: "easeOutSine",
+                        percentageInnerCutout: 60,
+                        segmentShowStroke: false,
                         display: true,
                         text: "Device Encryption Status"
                     }
@@ -159,6 +249,7 @@
             });
         </script>
     </body>
+
     <script>
         mapboxgl.accessToken =
             'pk.eyJ1Ijoia2llcmFudzEyMyIsImEiOiJjbGRvbmlwZWowMWh0M25vNHpqM2l2aHNkIn0.LK_Zzg5x6OGQG6AJjMAIdQ';
@@ -212,6 +303,7 @@
         });
         const geojson = @json($decoded);
         console.log(geojson);
+        dd(geojson);
         for (const feature of geojson.features) {
             const el = document.createElement('div');
             el.className = 'marker';
