@@ -72,23 +72,23 @@ Route::get('/hardware', function () {
     return view('hardware', ['hardware' => HardwareAssets::all()]);
 })->name('hardware')->middleware('auth');
 
-Route::get('user-edit/{id}', 'App\Http\Controllers\usersController@edit');
+Route::get('user-edit/{id}', 'App\Http\Controllers\usersController@edit')->middleware('auth');
 
-Route::put('update-user/{id}', 'App\Http\Controllers\usersController@update');
+Route::put('update-user/{id}', 'App\Http\Controllers\usersController@update')->middleware('auth');
 
-Route::get('hardware-edit/{id}', [HardwareAssetsController::class, 'edit']);
+Route::get('hardware-edit/{id}', [HardwareAssetsController::class, 'edit'])->middleware('auth');
 
-Route::put('update-hardware/{id}', [HardwareAssetsController::class, 'update']);
+Route::put('update-hardware/{id}', [HardwareAssetsController::class, 'update'])->middleware('auth');
 
-Route::get('hardware/add', [HardwareAssetsController::class, 'create']);
+Route::get('hardware/add', [HardwareAssetsController::class, 'create'])->middleware('auth');
 
-Route::post('insert-hardware', [HardwareAssetsController::class, 'insert']);
+Route::post('insert-hardware', [HardwareAssetsController::class, 'insert'])->middleware('auth');
 
-Route::get('users/add', [usersController::class, 'add']);
+Route::get('users/add', [usersController::class, 'add'])->middleware('auth');
 
-Route::post('insert-user', [usersController::class, 'insert']);
+Route::post('insert-user', [usersController::class, 'insert'])->middleware('auth');
 
-Route::get('hardware-delete/{id}', [HardwareAssetsController::class, 'remove']);
+Route::get('hardware-delete/{id}', [HardwareAssetsController::class, 'remove'])->middleware('auth');
 
 Route::get('/locations', function () {
     return view('locations', ['locations' => App\Models\Locations::all()]);
@@ -98,7 +98,7 @@ Route::get('locations-add', function () {
     return view('locations-add');
 })->name('locations-add')->middleware('auth');
 
-Route::post('insert-location', 'App\Http\Controllers\LocationsController@insert');
+Route::post('insert-location', 'App\Http\Controllers\LocationsController@insert')->middleware('auth');
 
 Route::get('/companies', function () {
     return view('companies', ['companies' => App\Models\Companies::all()]);

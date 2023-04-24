@@ -374,17 +374,17 @@ return [
             'url'  => 'companies-add',
             'icon' => 'fas fa-fw fa-user-plus',
         ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
+        // ['header' => 'account_settings'],
+        // [
+        //     'text' => 'profile',
+        //     'url'  => 'admin/settings',
+        //     'icon' => 'fas fa-fw fa-user',
+        // ],
+        // [
+        //     'text' => 'change_password',
+        //     'url'  => 'admin/settings',
+        //     'icon' => 'fas fa-fw fa-lock',
+        // ],
 
         // ['header' => 'Alerts'],
         // [

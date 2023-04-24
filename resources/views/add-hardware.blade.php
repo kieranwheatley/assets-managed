@@ -1,5 +1,9 @@
 @extends('adminlte::page')
 
+<?php
+use Carbon\Carbon;
+?>
+
 @section('plugins.TempusDominusBs4', true)
 
 @section('title', 'Add Hardware Asset')

@@ -44,6 +44,8 @@
     </head>
 @stop
 @php
+    
+    $lifecycles = $hardware->countBy('lifecycle_phase');
     $locations = $hardware->countBy('locationName.id');
     $newLocations = [];
     foreach ($locations as $key => $value) {
@@ -93,33 +95,12 @@
                 <canvas id="lifecycle_chart"></canvas>
             </div>
             <div class="col" style="width:33%;float: centre;">
-                <canvas id="new_Chart"></canvas>
+                <canvas id="location_chart"></canvas>
             </div>
         </div>
     </div>
     </BR>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title">Assets Map</h3>
 
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="maximize"><i
-                                    class="fas fa-expand"></i></button>
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
-                                    class="fas fa-minus"></i></button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div id='map' style='width: 100%; min-height: 500px; margin: auto;'></div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
 
     <div class="container">
         <div class="row">
@@ -152,11 +133,21 @@
             </div>
         </div>
     </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card-body">
+                    <div id='map' style='width: 100%; min-height: 500px; margin: auto;'></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <body>
 
 
         <script>
+            //Encryption Chart
             var xValues = ["Encrypted", "Unencrypted"];
             var yValues = [{{ $unencrypted }}, {{ $hardware_count }}];
             var barColors = [
@@ -191,49 +182,24 @@
                 "red"
             ];
 
-            // new Chart("lifecycle_chart", {
-            //     type: "doughnut",
-            //     data: {
-            //         labels: xValues,
-            //         datasets: [{
-            //             backgroundColor: barColors,
-            //             data: yValues
-            //         }]
-            //     },
-            //     options: {
-            //         title: {
-            //             animation: true,
-            //             animationEasing: "easeOutSine",
-            //             percentageInnerCutout: 60,
-            //             segmentShowStroke: false,
-            //             display: true,
-            //             text: "Devices by Lifecycle Status"
-            //         }
-            //     }
-            // });
+            //Lifecycle Chart
 
-            // var names = [@json($location_names)];
-            // names = JSON.stringify(names);
-            // console.log(names);
-            // var counts = [@json($location_counts)];
-            // counts = JSON.stringify(counts);
-            // var xValues = names.jsonarray.map(function(e) {
-            //     return e.name;
-
-            // var yValues = [counts];
-
-            // var barColors = [
-            //     "green",
-            //     "red"
-            // ];
-
-            new Chart("new_Chart", {
+            var lifecycles = [@json($lifecycles)];
+            //console.log(lifecycles);
+            var x = Object.keys(lifecycles[0]);
+            var y = Object.values(lifecycles[0]);
+            var barColors = [
+                "green",
+                "red",
+                "orange",
+            ];
+            new Chart("lifecycle_chart", {
                 type: "doughnut",
                 data: {
-                    labels: xValues,
+                    labels: x,
                     datasets: [{
                         backgroundColor: barColors,
-                        data: yValues
+                        data: y
                     }]
                 },
                 options: {
@@ -243,10 +209,68 @@
                         percentageInnerCutout: 60,
                         segmentShowStroke: false,
                         display: true,
-                        text: "Device Encryption Status"
+                        text: "Devices by Lifecycle Phase"
                     }
                 }
             });
+
+            //Location Chart
+            var location_names = [@json($location_names)];
+            var location_counts = [@json($location_counts)];
+            console.log(location_names);
+            console.log(location_counts);
+
+            var location_names = Object.values(location_names[0]);
+            var location_values = Object.values(location_counts[0]);
+            var barColors = [
+                "green",
+                "red",
+                'orange',
+                'blue',
+                'yellow',
+                'purple',
+                'pink',
+                'brown',
+                'grey',
+                'black',
+                'white',
+                'cyan',
+                'magenta',
+                'lime',
+                'maroon',
+                'navy',
+                'olive',
+            ];
+
+            new Chart("location_chart", {
+                type: "doughnut",
+                data: {
+                    labels: location_names,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: location_values
+                    }]
+                },
+                options: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        animation: true,
+                        animationEasing: "easeOutSine",
+                        percentageInnerCutout: 60,
+                        segmentShowStroke: false,
+                        display: true,
+                        text: "Assets by Location"
+                    }
+                }
+            });
+            var xValues = ["Encrypted", "Unencrypted"];
+            var yValues = [{{ $unencrypted }}, {{ $hardware_count }}];
+            var barColors = [
+                "green",
+                "red"
+            ];
         </script>
     </body>
 
