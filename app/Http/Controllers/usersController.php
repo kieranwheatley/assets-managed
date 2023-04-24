@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\HardwareAssets;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
@@ -18,7 +19,8 @@ class usersController extends Controller
      public function edit($id)
      {
             $user = User::find($id);
-            return view('user-edit', compact('user'));
+            return view('user-edit', compact('user'),
+            ['users_assets' => HardwareAssets::where('users', $id)->get()]);
      }
 
      public function update(Request $request, $id)

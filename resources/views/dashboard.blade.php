@@ -97,7 +97,7 @@
             </div>
         </div>
     </div>
-
+    </BR>
     <div class="container">
         <div class="row">
             <div class="col">
@@ -303,7 +303,6 @@
         });
         const geojson = @json($decoded);
         console.log(geojson);
-        dd(geojson);
         for (const feature of geojson.features) {
             const el = document.createElement('div');
             el.className = 'marker';

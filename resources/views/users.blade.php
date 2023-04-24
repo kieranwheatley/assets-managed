@@ -45,7 +45,7 @@
         }
         $config = [
             'data' => $data,
-            'order' => [[2, 'asc']],
+            'order' => [[0, 'asc']],
             'columns' => [null, null, null, null, null, ['orderable' => true]],
         ];
         
