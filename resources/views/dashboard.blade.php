@@ -44,7 +44,6 @@
     </head>
 @stop
 @php
-    
     $lifecycles = $hardware->countBy('lifecycle_phase');
     $locations = $hardware->countBy('locationName.id');
     $newLocations = [];
@@ -54,6 +53,9 @@
             'name' => App\Models\Locations::find($key)->name,
             'latitude' => App\Models\Locations::find($key)->latitude,
             'longitude' => App\Models\Locations::find($key)->longitude,
+            'Has_CVE' => App\Models\HardwareAssets::where('location', $key)
+                ->where('Has_CVE', 1)
+                ->count(),
             'assetCount' => $value,
         ];
     }
@@ -64,7 +66,7 @@
     foreach ($original_data as $key => $value) {
         $features[] = [
             'type' => 'Feature',
-            'properties' => ['name' => $value['name'], 'description' => $value['assetCount']],
+            'properties' => ['name' => $value['name'], 'description' => $value['assetCount'], 'Has_CVE' => $value['Has_CVE']],
             'geometry' => [
                 'type' => 'Point',
                 'coordinates' => [floatval($value['longitude']), floatval($value['latitude'])],
@@ -99,7 +101,7 @@
             </div>
         </div>
     </div>
-    </BR>
+    <br>
 
 
     <div class="container">
@@ -136,7 +138,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <div class="card-body">
+                <div class="info-box">
                     <div id='map' style='width: 100%; min-height: 500px; margin: auto;'></div>
                 </div>
             </div>
@@ -338,17 +340,36 @@
                     return 'asset';
                 }
             }
-            new mapboxgl.Marker()
-                .setLngLat(feature.geometry.coordinates)
-                .setPopup(
-                    new mapboxgl.Popup({
-                        offset: 25
+            if (feature.properties.Has_CVE > 0) {
+                new mapboxgl.Marker({
+                        color: "red",
                     })
-                    .setHTML(
-                        `<h3>${feature.properties.name}</h3><p>${feature.properties.description} ${assetCountDesc()} assigned to this location.</p>`
+                    .setLngLat(feature.geometry.coordinates)
+                    .setPopup(
+                        new mapboxgl.Popup({
+                            offset: 25
+                        })
+                        .setHTML(
+                            `<h3>${feature.properties.name}</h3><p>${feature.properties.description} ${assetCountDesc()} assigned to this location.</p></br><h4>Warning</h4><p>This location has devices with vulnerabilties which need addressing.</p>`
+                        )
                     )
-                )
-                .addTo(map);
+                    .addTo(map);
+            } else {
+                new mapboxgl.Marker({
+                        color: "green",
+                    })
+                    .setLngLat(feature.geometry.coordinates)
+                    .setPopup(
+                        new mapboxgl.Popup({
+                            offset: 50
+                        })
+                        .setHTML(
+                            `<h3>${feature.properties.name}</h3><p>${feature.properties.description} ${assetCountDesc()} assigned to this location.</p>`
+                        )
+                    )
+                    .addTo(map);
+            }
+
 
         }
         map.addControl(new mapboxgl.FullscreenControl());

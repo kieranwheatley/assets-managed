@@ -45,7 +45,7 @@
                 <div class="col">
                     {{-- Placeholder, date only and append icon --}}
                     @php
-                        $config = ['format' => 'L'];
+                        $config = ['format' => 'YYYY-MM-DD'];
                     @endphp
                     <x-adminlte-input-date name="purchase_date" :config="$config" placeholder="Choose a date..."
                         label="Purchase Date" fgroup-class="col-md-9" value="{{ $hardware->purchase_date }}" input
@@ -61,7 +61,7 @@
             <div class="row">
                 <div class="col">
                     @php
-                        $config = ['format' => 'L'];
+                        $config = ['format' => 'YYYY-MM-DD'];
                     @endphp
                     <x-adminlte-input-date name="warranty_date" :config="$config" placeholder="Choose a date..."
                         label="Warranty Expiry Date" fgroup-class="col-md-9" value="{{ $hardware->warranty_date }}" input
@@ -106,12 +106,19 @@
             </div>
             <div class="row">
 
-                <div class="col">
+                {{-- <div class="col">
                     <x-adminlte-input name="assigned_to" label="Assigned To"
                         value="{{ $hardware->assignedUser->first_name }} {{ $hardware->assignedUser->last_name }}"
                         fgroup-class="col-md-9" disable-feedback />
-                </div>
+                </div> --}}
                 <div class="col">
+                    <x-adminlte-select name="assigned_to">
+                        <x-adminlte-options :options="$users" disabled="1" placeholder=" " />
+                    </x-adminlte-select>
+                </div>
+
+                <div class="col">
+                    egfegeg
                 </div>
             </div>
             <div class="row">

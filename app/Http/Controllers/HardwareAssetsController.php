@@ -23,12 +23,14 @@ class HardwareAssetsController extends Controller
        }
 
        public function edit($id)
+       
        {
-              $hardware = HardwareAssets::find($id);
+              $users = User::all()->pluck('email', 'id')->toArray();
+              $hardware = HardwareAssets::find($id); 
               $manufacturers = Companies::all()->pluck('name', 'id')->toArray();
               $operating_systems = OperatingSystem::all()->pluck('os_name', 'id')->toArray();
               $locations = Locations::all()->pluck('name', 'id')->toArray();
-              return view('hardware-edit', ['hardware' => $hardware, 'manufacturers' => $manufacturers, 'operating_systems' => $operating_systems, 'locations' => $locations]);
+              return view('hardware-edit', ['hardware' => $hardware, 'manufacturers' => $manufacturers, 'operating_systems' => $operating_systems, 'locations' => $locations, 'users' => $users]);
        }
        public function create()
        {
@@ -46,8 +48,8 @@ class HardwareAssetsController extends Controller
               $hardware->companies = request('company');
               $hardware->model = request('model');
               $hardware->serial_number = request('serial_number');
-              $hardware->purchase_date = Carbon::createFromFormat('m/d/Y', request('purchase_date'));
-              $hardware->warranty_date = Carbon::createFromFormat('m/d/Y', request('warranty_date'));
+              $hardware->purchase_date = request('purchase_date');
+              $hardware->warranty_date = request('warranty_date');
               $hardware->purchase_price = str_replace(',', '', request('purchase_price'));
               //$hardware->version = request('operating_system');
               $hardware->version = "1";
@@ -96,12 +98,12 @@ class HardwareAssetsController extends Controller
               // {
               //        $hardware->purchase_date = Carbon::createFromFormat('m-d-Y', request('purchase_date'));
               // }}
-              $hardware->purchase_date = Carbon::createFromFormat('m/d/Y', $request->Input('purchase_date'));
-              $hardware->warranty_date = Carbon::createFromFormat('m/d/Y', $request->Input('warranty_date'));
+              $hardware->purchase_date = $request->Input('purchase_date');
+              $hardware->warranty_date = $request->Input('warranty_date');
               $hardware->purchase_price = str_replace(',', '', $request->Input('purchase_price'));
-              $hardware->version = $request->Input('operating_system');
               $hardware->lifecycle_phase = $request->Input('lifecycle_phase');
               $hardware->location = $request->Input('location');
+
               $hardware->users = $request->Input('assigned_to');
               $hardware->save();
               return redirect('/hardware')->with('success', 'Asset has been updated');

@@ -50,9 +50,15 @@ Route::get('/dashboard', function () {
     'user_count' => User::count(), 
     'software_count' => SoftwareAssets::count(), 
     'hardware_count' => HardwareAssets::count(), 
+
+    // Update records with null CVEs to 0
+    //'update' => HardwareAssets::where('has_cve', '=', null)->update(['has_cve' => 0]),
+
     'hardware' => HardwareAssets::all(),
     'last_boot_time' => HardwareAssets::where('last_boot_time', '<', now()->subDays(28))->count(),
     'vulnerabilities' => HardwareAssets::where('has_CVE', '=', 1)->count(),
+    
+
     'unencrypted' => HardwareAssets::where('encryption_status', '=', 'Not Encrypted')->count()]);
 })->name('home')->middleware('auth');
 
@@ -108,4 +114,4 @@ Route::get('companies-add', function () {
     return view('companies-add');
 })->name('companies-add')->middleware('auth');
 
-Route::post('insert-company', 'App\Http\Controllers\CompaniesController@insert');
+Route::post('insert-company', 'App\Http\Controllers\CompaniesController@insert')->middleware('auth');
