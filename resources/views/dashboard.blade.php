@@ -378,5 +378,4 @@
         });
         map.addControl(nav, 'bottom-right');
     </script>
-
 @stop

@@ -45,7 +45,11 @@
                 <div class="col">
                     {{-- Placeholder, date only and append icon --}}
                     @php
+<<<<<<< HEAD
                         $config = ['format' => 'YYYY-MM-DD'];
+=======
+                        $config = ['format' => 'L'];
+>>>>>>> master
                     @endphp
                     <x-adminlte-input-date name="purchase_date" :config="$config" placeholder="Choose a date..."
                         label="Purchase Date" fgroup-class="col-md-9" value="{{ $hardware->purchase_date }}" input
@@ -61,7 +65,11 @@
             <div class="row">
                 <div class="col">
                     @php
+<<<<<<< HEAD
                         $config = ['format' => 'YYYY-MM-DD'];
+=======
+                        $config = ['format' => 'L'];
+>>>>>>> master
                     @endphp
                     <x-adminlte-input-date name="warranty_date" :config="$config" placeholder="Choose a date..."
                         label="Warranty Expiry Date" fgroup-class="col-md-9" value="{{ $hardware->warranty_date }}" input
@@ -80,12 +88,20 @@
                 </div>
             </div>
             <div class="row">
+<<<<<<< HEAD
                 {{-- <div class="col">
+=======
+                <div class="col">
+>>>>>>> master
                     <x-adminlte-select name="operating_system" label="Operating System" fgroup-class="col-md-9">
                         <x-adminlte-options :options="$operating_systems" placeholder="{{ $hardware->os->os_name }}"
                             selected="{{ $hardware->os->id }}" />
                     </x-adminlte-select>
+<<<<<<< HEAD
                 </div> --}}
+=======
+                </div>
+>>>>>>> master
                 <div class="col">
                     <x-adminlte-select name="lifecycle_phase" label="Lifecycle Phase" fgroup-class="col-md-9">
                         <x-adminlte-options :options="[
@@ -94,15 +110,24 @@
                             'disposed' => 'Disposed',
                         ]"
                             placeholder="{{ ucfirst(trans($hardware->lifecycle_phase)) }}"
+<<<<<<< HEAD
                             selected="{{ $hardware->lifecycle_phase }}" />
                     </x-adminlte-select>
                 </div>
+=======
+                            selected="{{ $hardware->os->id }}" />
+                    </x-adminlte-select>
+                </div>
+            </div>
+            <div class="row">
+>>>>>>> master
                 <div class="col">
                     <x-adminlte-select name="location" label="Location" fgroup-class="col-md-9">
                         <x-adminlte-options :options="$locations" placeholder="{{ $hardware->locationName->name }}"
                             selected="{{ $hardware->locationName->id }}" />
                     </x-adminlte-select>
                 </div>
+<<<<<<< HEAD
             </div>
             <div class="row">
 
@@ -119,6 +144,12 @@
 
                 <div class="col">
                     egfegeg
+=======
+                <div class="col">
+                    <x-adminlte-input name="assigned_to" label="Assigned To"
+                        value="{{ $hardware->assignedUser->first_name }} {{ $hardware->assignedUser->last_name }}"
+                        fgroup-class="col-md-9" disable-feedback />
+>>>>>>> master
                 </div>
             </div>
             <div class="row">
@@ -137,6 +168,7 @@
                         value="{{ $hardware->encryption_status }}" fgroup-class="col-md-9" readonly />
                 </div>
                 <div class="col">
+<<<<<<< HEAD
 
                     <x-adminlte-select name="has_CVE" label="CVE detected?" fgroup-class="col-md-9" disabled>
                         <x-adminlte-options :options="[
@@ -149,6 +181,10 @@
 
             </div>
 
+=======
+                </div>
+            </div>
+>>>>>>> master
             <div class="row">
                 <div class="col">
                     <div class="col">
@@ -156,7 +192,10 @@
                             icon="fas fa-lg fa-save" fgroup-class="col-md-9" />
                     </div>
                 </div>
+<<<<<<< HEAD
             </div>
+=======
+>>>>>>> master
         </form>
     </div>
 
