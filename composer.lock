@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "9ed0d5977078215c7e7065b9a78f6173",
+=======
+    "content-hash": "56949acbdd27ed0b17f32d2ed58fe81c",
+>>>>>>> master
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -942,6 +946,7 @@
         },
         {
             "name": "jeroennoten/laravel-adminlte",
+<<<<<<< HEAD
             "version": "v3.8.6",
             "source": {
                 "type": "git",
@@ -952,6 +957,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/jeroennoten/Laravel-AdminLTE/zipball/6cb6153e875b3bbf085df0edfed25ceb35cbe2d6",
                 "reference": "6cb6153e875b3bbf085df0edfed25ceb35cbe2d6",
+=======
+            "version": "v3.8.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jeroennoten/Laravel-AdminLTE.git",
+                "reference": "f06dfd13a16b7449e89fb12a768184edd5db9bbc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jeroennoten/Laravel-AdminLTE/zipball/f06dfd13a16b7449e89fb12a768184edd5db9bbc",
+                "reference": "f06dfd13a16b7449e89fb12a768184edd5db9bbc",
+>>>>>>> master
                 "shasum": ""
             },
             "require": {
@@ -996,9 +1013,15 @@
             ],
             "support": {
                 "issues": "https://github.com/jeroennoten/Laravel-AdminLTE/issues",
+<<<<<<< HEAD
                 "source": "https://github.com/jeroennoten/Laravel-AdminLTE/tree/v3.8.6"
             },
             "time": "2023-02-03T16:04:05+00:00"
+=======
+                "source": "https://github.com/jeroennoten/Laravel-AdminLTE/tree/v3.8.4"
+            },
+            "time": "2022-08-18T15:19:54+00:00"
+>>>>>>> master
         },
         {
             "name": "laravel/framework",

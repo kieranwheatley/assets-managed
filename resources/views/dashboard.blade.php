@@ -9,11 +9,14 @@
         <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js"></script>
         <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css" rel="stylesheet" />
         <script src="path/to/chartjs/dist/chart.umd.js"></script>
+<<<<<<< HEAD
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
         <link href="{{ asset('resources/css/app.css') }}" rel="stylesheet">
         <script type="text/javascript" src="{{ asset('resources/js/app.js') }}"></script>
 
 
+=======
+>>>>>>> master
 
         <style>
             #map {}
@@ -23,7 +26,11 @@
             }
 
             .marker {
+<<<<<<< HEAD
                 background-image: image("resources/img/mapbox-icon.png");
+=======
+                background-image: URL('images/mapbox-icon.png');
+>>>>>>> master
                 background-size: cover;
                 width: 40px;
                 height: 40px;
@@ -43,6 +50,7 @@
         </style>
     </head>
 @stop
+<<<<<<< HEAD
 @php
     $lifecycles = $hardware->countBy('lifecycle_phase');
     $locations = $hardware->countBy('locationName.id');
@@ -106,11 +114,17 @@
 
     <div class="container">
         <div class="row">
+=======
+@section('content')
+    <div class="container">
+        <div class="row">
+>>>>>>> master
             <div class="col">
                 <x-adminlte-info-box title="Assets" text="{{ $hardware_count }}" icon="fas fa-lg fa-laptop"
                     icon-theme="yellow" />
             </div>
             <div class="col">
+<<<<<<< HEAD
                 <x-adminlte-info-box title="Users" text="{{ $user_count }}" icon="fas fa-lg fa-users"
                     icon-theme="blue" />
             </div>
@@ -276,12 +290,95 @@
         </script>
     </body>
 
+=======
+
+                <x-adminlte-info-box title="Users" text="{{ $user_count }}" icon="fas fa-lg fa-users"
+                    icon-theme="blue" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <x-adminlte-info-box title="Unencrypted Devices" text="{{ $unencrypted }}/{{ $hardware_count }}"
+                    icon="fa fa-exclamation-triangle" icon-theme="red" />
+            </div>
+        </div>
+    </div>
+
+    @php
+        $locations = $hardware->countBy('locationName.id');
+        $newLocations = [];
+        foreach ($locations as $key => $value) {
+            $newLocations[] = [
+                'id' => $key,
+                'name' => App\Models\Locations::find($key)->name,
+                'latitude' => App\Models\Locations::find($key)->latitude,
+                'longitude' => App\Models\Locations::find($key)->longitude,
+                'assetCount' => $value,
+            ];
+        }
+        
+        $jsonData = json_encode($newLocations);
+        $original_data = json_decode($jsonData, true);
+        $features = [];
+        foreach ($original_data as $key => $value) {
+            $features[] = [
+                'type' => 'Feature',
+                'properties' => ['name' => $value['name'], 'description' => $value['assetCount']],
+                'geometry' => [
+                    'type' => 'Point',
+                    'coordinates' => [floatval($value['longitude']), floatval($value['latitude'])],
+                ],
+            ];
+        }
+        
+        $new_data = [
+            'type' => 'FeatureCollection',
+            'features' => $features,
+        ];
+        
+        $final_data = json_encode($new_data, JSON_PRETTY_PRINT);
+        $decoded = json_decode($final_data, true);
+    @endphp
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Assets Map</h3>
+
+                        <div class="card-tools">
+                            <!-- This will cause the card to maximize when clicked -->
+                            <button type="button" class="btn btn-tool" data-card-widget="maximize"><i
+                                    class="fas fa-expand"></i></button>
+                            <!-- This will cause the card to collapse when clicked -->
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                    class="fas fa-minus"></i></button>
+                            <!-- This will cause the card to be removed when clicked -->
+                            {{-- <button type="button" class="btn btn-tool" data-card-widget="remove"><i
+                            class="fas fa-times"></i></button> --}}
+                        </div>
+                        <!-- /.card-tools -->
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div id='map' style='width: 100%; min-height: 500px; margin: auto;'></div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+
+        </div>
+    </div>
+
+>>>>>>> master
     <script>
         mapboxgl.accessToken =
             'pk.eyJ1Ijoia2llcmFudzEyMyIsImEiOiJjbGRvbmlwZWowMWh0M25vNHpqM2l2aHNkIn0.LK_Zzg5x6OGQG6AJjMAIdQ';
 
         let map = new mapboxgl.Map({
             container: 'map',
+<<<<<<< HEAD
             center: [-4.139329067763081, 50.37523227813306],
             zoom: 16.5,
             style: 'mapbox://styles/mapbox/satellite-streets-v12',
@@ -327,6 +424,13 @@
                 labelLayerId
             );
         });
+=======
+            center: [-3.287018, 54.35594511],
+            zoom: 5,
+            style: 'mapbox://styles/mapbox/satellite-streets-v12',
+            accessToken: 'pk.eyJ1Ijoia2llcmFudzEyMyIsImEiOiJjbGRvbmlwZWowMWh0M25vNHpqM2l2aHNkIn0.LK_Zzg5x6OGQG6AJjMAIdQ'
+        });
+>>>>>>> master
         const geojson = @json($decoded);
         console.log(geojson);
         for (const feature of geojson.features) {
@@ -340,6 +444,7 @@
                     return 'asset';
                 }
             }
+<<<<<<< HEAD
             if (feature.properties.Has_CVE > 0) {
                 new mapboxgl.Marker({
                         color: "red",
@@ -370,6 +475,19 @@
                     .addTo(map);
             }
 
+=======
+            new mapboxgl.Marker(el)
+                .setLngLat(feature.geometry.coordinates)
+                .setPopup(
+                    new mapboxgl.Popup({
+                        offset: 25
+                    })
+                    .setHTML(
+                        `<h3>${feature.properties.name}</h3><p>${feature.properties.description} ${assetCountDesc()} assigned to this location.</p>`
+                    )
+                )
+                .addTo(map);
+>>>>>>> master
 
         }
         map.addControl(new mapboxgl.FullscreenControl());
@@ -378,5 +496,8 @@
         });
         map.addControl(nav, 'bottom-right');
     </script>
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 @stop
