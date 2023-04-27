@@ -1,0 +1,15 @@
+C:\Users\Kieran\source\repos\Windows Data Collector\Windows Data Collector\bin\Debug\net7.0\Windows Data Collector.exe
+C:\Users\Kieran\source\repos\Windows Data Collector\Windows Data Collector\bin\Debug\net7.0\Windows Data Collector.deps.json
+C:\Users\Kieran\source\repos\Windows Data Collector\Windows Data Collector\bin\Debug\net7.0\Windows Data Collector.runtimeconfig.json
+C:\Users\Kieran\source\repos\Windows Data Collector\Windows Data Collector\bin\Debug\net7.0\Windows Data Collector.dll
+C:\Users\Kieran\source\repos\Windows Data Collector\Windows Data Collector\bin\Debug\net7.0\Windows Data Collector.pdb
+C:\Users\Kieran\source\repos\Windows Data Collector\Windows Data Collector\obj\Debug\net7.0\Windows Data Collector.csproj.AssemblyReference.cache
+C:\Users\Kieran\source\repos\Windows Data Collector\Windows Data Collector\obj\Debug\net7.0\Windows Data Collector.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Kieran\source\repos\Windows Data Collector\Windows Data Collector\obj\Debug\net7.0\Windows Data Collector.AssemblyInfoInputs.cache
+C:\Users\Kieran\source\repos\Windows Data Collector\Windows Data Collector\obj\Debug\net7.0\Windows Data Collector.AssemblyInfo.cs
+C:\Users\Kieran\source\repos\Windows Data Collector\Windows Data Collector\obj\Debug\net7.0\Windows Data Collector.csproj.CoreCompileInputs.cache
+C:\Users\Kieran\source\repos\Windows Data Collector\Windows Data Collector\obj\Debug\net7.0\Windows Data Collector.dll
+C:\Users\Kieran\source\repos\Windows Data Collector\Windows Data Collector\obj\Debug\net7.0\refint\Windows Data Collector.dll
+C:\Users\Kieran\source\repos\Windows Data Collector\Windows Data Collector\obj\Debug\net7.0\Windows Data Collector.pdb
+C:\Users\Kieran\source\repos\Windows Data Collector\Windows Data Collector\obj\Debug\net7.0\Windows Data Collector.genruntimeconfig.cache
+C:\Users\Kieran\source\repos\Windows Data Collector\Windows Data Collector\obj\Debug\net7.0\ref\Windows Data Collector.dll
