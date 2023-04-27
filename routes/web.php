@@ -52,13 +52,14 @@ Route::get('/dashboard', function () {
     'hardware_count' => HardwareAssets::count(), 
 
     // Update records with null CVEs to 0
-    //'update' => HardwareAssets::where('has_cve', '=', null)->update(['has_cve' => 0]),
+    'update' => HardwareAssets::where('verified', '=', null)
+    ->update(['verified' => 1]),
 
     'hardware' => HardwareAssets::all(),
     'last_boot_time' => HardwareAssets::where('last_boot_time', '<', now()->subDays(28))->count(),
     'vulnerabilities' => HardwareAssets::where('has_CVE', '=', 1)->count(),
     
-
+    'encrypted' => HardwareAssets::where('encryption_status', '=', 'Fully Encrypted')->count(),
     'unencrypted' => HardwareAssets::where('encryption_status', '=', 'Not Encrypted')->count()]);
 })->name('home')->middleware('auth');
 

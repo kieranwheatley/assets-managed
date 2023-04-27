@@ -151,7 +151,7 @@
         <script>
             //Encryption Chart
             var xValues = ["Encrypted", "Unencrypted"];
-            var yValues = [{{ $unencrypted }}, {{ $hardware_count }}];
+            var yValues = [{{ $encrypted }}, {{ $unencrypted }}];
             var barColors = [
                 "green",
                 "red"
@@ -350,7 +350,7 @@
                             offset: 25
                         })
                         .setHTML(
-                            `<h3>${feature.properties.name}</h3><p>${feature.properties.description} ${assetCountDesc()} assigned to this location.</p></br><h4>Warning</h4><p>This location has devices with vulnerabilties which need addressing.</p>`
+                            `<h3>${feature.properties.name}</h3><p>${feature.properties.description} ${assetCountDesc()} assigned to this location.</p><h4><b>Warning</b></h4><p>This location has devices with vulnerabilties which need addressing.</p>`
                         )
                     )
                     .addTo(map);
