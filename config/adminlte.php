@@ -64,7 +64,11 @@ return [
     */
 
     'logo' => '<b>Assets?</b> Managed.',
+<<<<<<< HEAD
     'logo_img' => '/images/AM Icon - White.png',
+=======
+    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+>>>>>>> master
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -84,9 +88,15 @@ return [
     */
 
     'auth_logo' => [
+<<<<<<< HEAD
         'enabled' => true,
         'img' => [
             'path' => '/images/AM Icon - Black.png',
+=======
+        'enabled' => false,
+        'img' => [
+            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+>>>>>>> master
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 50,
@@ -109,11 +119,19 @@ return [
     'preloader' => [
         'enabled' => true,
         'img' => [
+<<<<<<< HEAD
             'path' => '/images/AM Logo - Black Transparent.png',
             'alt' => 'Assets? Managed. Preloader Image',
             'effect' => 'animation__shake',
             'width' => 500,
             'height' => 500,
+=======
+            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'alt' => 'AdminLTE Preloader Image',
+            'effect' => 'animation__shake',
+            'width' => 60,
+            'height' => 60,
+>>>>>>> master
         ],
     ],
 
@@ -130,8 +148,13 @@ return [
     */
 
     'usermenu_enabled' => true,
+<<<<<<< HEAD
     'usermenu_header' => true,
     'usermenu_header_class' => 'bg-secondary',
+=======
+    'usermenu_header' => false,
+    'usermenu_header_class' => 'bg-primary',
+>>>>>>> master
     'usermenu_image' => false,
     'usermenu_desc' => false,
     'usermenu_profile_url' => false,
@@ -150,10 +173,17 @@ return [
 
     'layout_topnav' => null,
     'layout_boxed' => null,
+<<<<<<< HEAD
     'layout_fixed_sidebar' => true,
     'layout_fixed_navbar' => true,
     'layout_fixed_footer' => null,
     'layout_dark_mode' => null,
+=======
+    'layout_fixed_sidebar' => null,
+    'layout_fixed_navbar' => null,
+    'layout_fixed_footer' => null,
+    'layout_dark_mode' => true,
+>>>>>>> master
 
     /*
     |--------------------------------------------------------------------------
@@ -213,7 +243,11 @@ return [
     'sidebar_mini' => 'lg',
     'sidebar_collapse' => false,
     'sidebar_collapse_auto_size' => false,
+<<<<<<< HEAD
     'sidebar_collapse_remember' => true,
+=======
+    'sidebar_collapse_remember' => false,
+>>>>>>> master
     'sidebar_collapse_remember_no_transition' => true,
     'sidebar_scrollbar_theme' => 'os-theme-light',
     'sidebar_scrollbar_auto_hide' => 'l',
@@ -289,6 +323,7 @@ return [
     |
     */
 
+<<<<<<< HEAD
         /*
     |--------------------------------------------------------------------------
     | Menu Items
@@ -301,6 +336,8 @@ return [
     |
     */
 
+=======
+>>>>>>> master
     'menu' => [
         // Navbar items:
         [

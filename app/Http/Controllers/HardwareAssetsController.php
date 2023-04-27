@@ -10,11 +10,15 @@ use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use App\Models\HardwareAssets;
 use Illuminate\Support\Carbon;
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Http;
+=======
+>>>>>>> master
 
 class HardwareAssetsController extends Controller
 {
        //
+<<<<<<< HEAD
        public function checkCVE($company, $model)
        {
               $response = Http::get('https://services.nvd.nist.gov/rest/json/cves/2.0', [
@@ -31,6 +35,15 @@ class HardwareAssetsController extends Controller
               $operating_systems = OperatingSystem::all()->pluck('os_name', 'id')->toArray();
               $locations = Locations::all()->pluck('name', 'id')->toArray();
               return view('hardware-edit', ['hardware' => $hardware, 'manufacturers' => $manufacturers, 'operating_systems' => $operating_systems, 'locations' => $locations, 'users' => $users]);
+=======
+       public function edit($id)
+       {
+              $hardware = HardwareAssets::find($id);
+              $manufacturers = Companies::all()->pluck('name', 'id')->toArray();
+              $operating_systems = OperatingSystem::all()->pluck('os_name', 'id')->toArray();
+              $locations = Locations::all()->pluck('name', 'id')->toArray();
+              return view('hardware-edit', ['hardware' => $hardware, 'manufacturers' => $manufacturers, 'operating_systems' => $operating_systems, 'locations' => $locations]);
+>>>>>>> master
        }
        public function create()
        {
@@ -48,6 +61,7 @@ class HardwareAssetsController extends Controller
               $hardware->companies = request('company');
               $hardware->model = request('model');
               $hardware->serial_number = request('serial_number');
+<<<<<<< HEAD
               $hardware->purchase_date = request('purchase_date');
               $hardware->warranty_date = request('warranty_date');
               $hardware->purchase_price = str_replace(',', '', request('purchase_price'));
@@ -75,6 +89,15 @@ class HardwareAssetsController extends Controller
                      $hardware->highest_CVE_severity = null;
               }
               //dd($hardware->CVE_details);
+=======
+              $hardware->purchase_date = Carbon::createFromFormat('m/d/Y', request('purchase_date'));
+              $hardware->warranty_date = Carbon::createFromFormat('m/d/Y', request('warranty_date'));
+              $hardware->purchase_price = str_replace(',', '', request('purchase_price'));
+              $hardware->version = request('operating_system');
+              $hardware->lifecycle_phase = request('lifecycle_phase');
+              $hardware->location = request('location');
+              $hardware->users = request('assigned_to');
+>>>>>>> master
               $hardware->save();
               return redirect('/hardware')->with('success', 'Hardware asset has been added');
        }
