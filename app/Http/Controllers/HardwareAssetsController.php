@@ -10,10 +10,32 @@ use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use App\Models\HardwareAssets;
 use Illuminate\Support\Carbon;
+<<<<<<< HEAD
+use Illuminate\Support\Facades\Http;
+=======
+>>>>>>> master
 
 class HardwareAssetsController extends Controller
 {
        //
+<<<<<<< HEAD
+       public function checkCVE($company, $model)
+       {
+              $response = Http::get('https://services.nvd.nist.gov/rest/json/cves/2.0', [
+              'keywordSearch' => $company . " " . $model,]);
+              return $response->json();
+       }
+
+       public function edit($id)
+       
+       {
+              $users = User::all()->pluck('email', 'id')->toArray();
+              $hardware = HardwareAssets::find($id); 
+              $manufacturers = Companies::all()->pluck('name', 'id')->toArray();
+              $operating_systems = OperatingSystem::all()->pluck('os_name', 'id')->toArray();
+              $locations = Locations::all()->pluck('name', 'id')->toArray();
+              return view('hardware-edit', ['hardware' => $hardware, 'manufacturers' => $manufacturers, 'operating_systems' => $operating_systems, 'locations' => $locations, 'users' => $users]);
+=======
        public function edit($id)
        {
               $hardware = HardwareAssets::find($id);
@@ -21,6 +43,7 @@ class HardwareAssetsController extends Controller
               $operating_systems = OperatingSystem::all()->pluck('os_name', 'id')->toArray();
               $locations = Locations::all()->pluck('name', 'id')->toArray();
               return view('hardware-edit', ['hardware' => $hardware, 'manufacturers' => $manufacturers, 'operating_systems' => $operating_systems, 'locations' => $locations]);
+>>>>>>> master
        }
        public function create()
        {
@@ -38,6 +61,35 @@ class HardwareAssetsController extends Controller
               $hardware->companies = request('company');
               $hardware->model = request('model');
               $hardware->serial_number = request('serial_number');
+<<<<<<< HEAD
+              $hardware->purchase_date = request('purchase_date');
+              $hardware->warranty_date = request('warranty_date');
+              $hardware->purchase_price = str_replace(',', '', request('purchase_price'));
+              //$hardware->version = request('operating_system');
+              $hardware->version = "1";
+              $hardware->lifecycle_phase = request('lifecycle_phase');
+              $hardware->location = request('location');
+              $hardware->users = request('assigned_to');
+
+              $company_name = Companies::where('id', request('company'))->get();
+              $company = $company_name[0]->name;
+
+              $response = $this->checkCVE($company, request('model'), request('serial_number'));
+              //dd($response);
+              if ($response['totalResults'] > 0)
+              {
+                     $hardware->has_CVE = true;
+                     $hardware->CVE_details = json_encode($response['vulnerabilities']);
+                     //$hardware->highest_CVE_severity = $response['result']['CVE_Items'][0]['impact']['baseMetricV3']['cvssV3']['baseSeverity'];
+              }
+              else
+              {
+                     $hardware->has_CVE = false;
+                     $hardware->CVE_details = null;
+                     $hardware->highest_CVE_severity = null;
+              }
+              //dd($hardware->CVE_details);
+=======
               $hardware->purchase_date = Carbon::createFromFormat('m/d/Y', request('purchase_date'));
               $hardware->warranty_date = Carbon::createFromFormat('m/d/Y', request('warranty_date'));
               $hardware->purchase_price = str_replace(',', '', request('purchase_price'));
@@ -45,6 +97,7 @@ class HardwareAssetsController extends Controller
               $hardware->lifecycle_phase = request('lifecycle_phase');
               $hardware->location = request('location');
               $hardware->users = request('assigned_to');
+>>>>>>> master
               $hardware->save();
               return redirect('/hardware')->with('success', 'Hardware asset has been added');
        }
@@ -68,12 +121,12 @@ class HardwareAssetsController extends Controller
               // {
               //        $hardware->purchase_date = Carbon::createFromFormat('m-d-Y', request('purchase_date'));
               // }}
-              $hardware->purchase_date = Carbon::createFromFormat('m/d/Y', $request->Input('purchase_date'));
-              $hardware->warranty_date = Carbon::createFromFormat('m/d/Y', $request->Input('warranty_date'));
+              $hardware->purchase_date = $request->Input('purchase_date');
+              $hardware->warranty_date = $request->Input('warranty_date');
               $hardware->purchase_price = str_replace(',', '', $request->Input('purchase_price'));
-              $hardware->version = $request->Input('operating_system');
               $hardware->lifecycle_phase = $request->Input('lifecycle_phase');
               $hardware->location = $request->Input('location');
+
               $hardware->users = $request->Input('assigned_to');
               $hardware->save();
               return redirect('/hardware')->with('success', 'Asset has been updated');
@@ -109,4 +162,6 @@ class HardwareAssetsController extends Controller
               logger("Test");
               return ["Result" => "Success"];
        }
+
+       
 }

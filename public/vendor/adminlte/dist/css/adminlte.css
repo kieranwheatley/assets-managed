@@ -34770,7 +34770,11 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
 
 .widget-user-2 .widget-user-username,
 .widget-user-2 .widget-user-desc {
+<<<<<<< HEAD
+  margin-left: 75px;
+=======
   margin-left: 0px;
+>>>>>>> master
 }
 
 .widget-user-2 .widget-user-image > img {

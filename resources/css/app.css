@@ -1,0 +1,11 @@
+#encryption_chart {
+    width: 50%;
+    /* set width to 50% of page width */
+    float: left;
+    /* Make the element go to the left */
+}
+
+#lifecycle_chart {
+    width: 50%;
+    float: right;
+}
