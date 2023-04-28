@@ -2,17 +2,10 @@
 
 return [
 
-<<<<<<< HEAD
     'main_navigation'               => 'MAIN NAVIGATION',
     'blog'                          => 'Blog',
     'pages'                         => 'Pages',
     'account_settings'              => 'ACCOUNT SETTINGS',
-=======
-    'main_navigation'               => 'Main Navigation',
-    'blog'                          => 'Blog',
-    'pages'                         => 'Pages',
-    'account_settings'              => 'Account Settings',
->>>>>>> master
     'profile'                       => 'Profile',
     'change_password'               => 'Change Password',
     'multilevel'                    => 'Multi Level',
