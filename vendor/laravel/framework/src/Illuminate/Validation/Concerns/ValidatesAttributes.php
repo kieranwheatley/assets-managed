@@ -25,6 +25,7 @@ use Illuminate\Validation\ValidationData;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use ValueError;
 
 trait ValidatesAttributes
 {
@@ -126,7 +127,7 @@ trait ValidatesAttributes
                 if (is_array($records) && count($records) > 0) {
                     return true;
                 }
-            } catch (Exception $e) {
+            } catch (Exception) {
                 return false;
             }
         }
@@ -249,7 +250,7 @@ trait ValidatesAttributes
             return $this->checkDateTimeOrder($format, $value, $parameters[0], $operator);
         }
 
-        if (! $date = $this->getDateTimestamp($parameters[0])) {
+        if (is_null($date = $this->getDateTimestamp($parameters[0]))) {
             $date = $this->getDateTimestamp($this->getValue($parameters[0]));
         }
 
@@ -332,7 +333,7 @@ trait ValidatesAttributes
     {
         try {
             return @Date::parse($value) ?: null;
-        } catch (Exception $e) {
+        } catch (Exception) {
             //
         }
     }
@@ -524,7 +525,7 @@ trait ValidatesAttributes
             if ((! is_string($value) && ! is_numeric($value)) || strtotime($value) === false) {
                 return false;
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             return false;
         }
 
@@ -550,10 +551,14 @@ trait ValidatesAttributes
         }
 
         foreach ($parameters as $format) {
-            $date = DateTime::createFromFormat('!'.$format, $value);
+            try {
+                $date = DateTime::createFromFormat('!'.$format, $value);
 
-            if ($date && $date->format($format) == $value) {
-                return true;
+                if ($date && $date->format($format) == $value) {
+                    return true;
+                }
+            } catch (ValueError) {
+                return false;
             }
         }
 
@@ -585,11 +590,11 @@ trait ValidatesAttributes
      */
     public function validateDecimal($attribute, $value, $parameters)
     {
+        $this->requireParameterCount(1, $parameters, 'decimal');
+
         if (! $this->validateNumeric($attribute, $value)) {
             return false;
         }
-
-        $this->requireParameterCount(1, $parameters, 'decimal');
 
         $matches = [];
 
@@ -1416,7 +1421,7 @@ trait ValidatesAttributes
      */
     public function validateMaxDigits($attribute, $value, $parameters)
     {
-        $this->requireParameterCount(1, $parameters, 'max');
+        $this->requireParameterCount(1, $parameters, 'max_digits');
 
         $length = strlen((string) $value);
 
@@ -1518,7 +1523,7 @@ trait ValidatesAttributes
      */
     public function validateMinDigits($attribute, $value, $parameters)
     {
-        $this->requireParameterCount(1, $parameters, 'min');
+        $this->requireParameterCount(1, $parameters, 'min_digits');
 
         $length = strlen((string) $value);
 
@@ -1609,7 +1614,7 @@ trait ValidatesAttributes
      */
     public function validateMissingWithAll($attribute, $value, $parameters)
     {
-        $this->requireParameterCount(1, $parameters, 'missing_with');
+        $this->requireParameterCount(1, $parameters, 'missing_with_all');
 
         if (Arr::has($this->data, $parameters)) {
             return $this->validateMissing($attribute, $value, $parameters);

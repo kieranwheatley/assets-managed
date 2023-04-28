@@ -273,7 +273,7 @@ class Connection implements ConnectionInterface
     /**
      * Get the default schema grammar instance.
      *
-     * @return \Illuminate\Database\Schema\Grammars\Grammar
+     * @return \Illuminate\Database\Schema\Grammars\Grammar|null
      */
     protected function getDefaultSchemaGrammar()
     {
@@ -419,6 +419,39 @@ class Connection implements ConnectionInterface
             $statement->execute();
 
             return $statement->fetchAll();
+        });
+    }
+
+    /**
+     * Run a select statement against the database and returns all of the result sets.
+     *
+     * @param  string  $query
+     * @param  array  $bindings
+     * @param  bool  $useReadPdo
+     * @return array
+     */
+    public function selectResultSets($query, $bindings = [], $useReadPdo = true)
+    {
+        return $this->run($query, $bindings, function ($query, $bindings) use ($useReadPdo) {
+            if ($this->pretending()) {
+                return [];
+            }
+
+            $statement = $this->prepared(
+                $this->getPdoForSelect($useReadPdo)->prepare($query)
+            );
+
+            $this->bindValues($statement, $this->prepareBindings($bindings));
+
+            $statement->execute();
+
+            $sets = [];
+
+            do {
+                $sets[] = $statement->fetchAll();
+            } while ($statement->nextRowset());
+
+            return $sets;
         });
     }
 
@@ -758,7 +791,7 @@ class Connection implements ConnectionInterface
         // lot more helpful to the developer instead of just the database's errors.
         catch (Exception $e) {
             throw new QueryException(
-                $query, $this->prepareBindings($bindings), $e
+                $this->getName(), $query, $this->prepareBindings($bindings), $e
             );
         }
     }
@@ -925,7 +958,7 @@ class Connection implements ConnectionInterface
      *
      * @return void
      */
-    protected function reconnectIfMissingConnection()
+    public function reconnectIfMissingConnection()
     {
         if (is_null($this->pdo)) {
             $this->reconnect();
@@ -1000,7 +1033,7 @@ class Connection implements ConnectionInterface
      * Get a new raw query expression.
      *
      * @param  mixed  $value
-     * @return \Illuminate\Database\Query\Expression
+     * @return \Illuminate\Contracts\Database\Query\Expression
      */
     public function raw($value)
     {
@@ -1077,7 +1110,7 @@ class Connection implements ConnectionInterface
     }
 
     /**
-     * Indicates whether native alter operations will be used when dropping or renaming columns, even if Doctrine DBAL is installed.
+     * Indicates whether native alter operations will be used when dropping, renaming, or modifying columns, even if Doctrine DBAL is installed.
      *
      * @return bool
      */
@@ -1097,7 +1130,7 @@ class Connection implements ConnectionInterface
     {
         $schema = $this->getDoctrineSchemaManager();
 
-        return $schema->listTableDetails($table)->getColumn($column);
+        return $schema->introspectTable($table)->getColumn($column);
     }
 
     /**
@@ -1109,11 +1142,7 @@ class Connection implements ConnectionInterface
     {
         $connection = $this->getDoctrineConnection();
 
-        // Doctrine v2 expects one parameter while v3 expects two. 2nd will be ignored on v2...
-        return $this->getDoctrineDriver()->getSchemaManager(
-            $connection,
-            $connection->getDatabasePlatform()
-        );
+        return $connection->createSchemaManager();
     }
 
     /**
@@ -1151,7 +1180,7 @@ class Connection implements ConnectionInterface
      * @param  string  $type
      * @return void
      *
-     * @throws \Doctrine\DBAL\DBALException
+     * @throws \Doctrine\DBAL\Exception
      * @throws \RuntimeException
      */
     public function registerDoctrineType(Type|string $class, string $name, string $type): void

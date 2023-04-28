@@ -115,3 +115,7 @@ Route::get('companies-add', function () {
 })->name('companies-add')->middleware('auth');
 
 Route::post('insert-company', 'App\Http\Controllers\CompaniesController@insert')->middleware('auth');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

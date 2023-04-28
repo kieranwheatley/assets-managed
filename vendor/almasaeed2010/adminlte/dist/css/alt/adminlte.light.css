@@ -24903,10 +24903,10 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   margin-top: 0;
 }
 
-/* .widget-user-2 .widget-user-username,
+.widget-user-2 .widget-user-username,
 .widget-user-2 .widget-user-desc {
-  margin-left: 0px;
-} */
+  margin-left: 75px;
+}
 
 .widget-user-2 .widget-user-image > img {
   float: left;

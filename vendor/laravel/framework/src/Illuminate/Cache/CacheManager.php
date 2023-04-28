@@ -80,7 +80,7 @@ class CacheManager implements FactoryContract
      *
      * @throws \InvalidArgumentException
      */
-    protected function resolve($name)
+    public function resolve($name)
     {
         $config = $this->getConfig($name);
 
@@ -144,7 +144,10 @@ class CacheManager implements FactoryContract
      */
     protected function createFileDriver(array $config)
     {
-        return $this->repository(new FileStore($this->app['files'], $config['path'], $config['permission'] ?? null));
+        return $this->repository(
+            (new FileStore($this->app['files'], $config['path'], $config['permission'] ?? null))
+                ->setLockDirectory($config['lock_path'] ?? null)
+        );
     }
 
     /**
@@ -392,6 +395,19 @@ class CacheManager implements FactoryContract
     public function extend($driver, Closure $callback)
     {
         $this->customCreators[$driver] = $callback->bindTo($this, $this);
+
+        return $this;
+    }
+
+    /**
+     * Set the application instance used by the manager.
+     *
+     * @param  \Illuminate\Contracts\Foundation\Application  $app
+     * @return $this
+     */
+    public function setApplication($app)
+    {
+        $this->app = $app;
 
         return $this;
     }

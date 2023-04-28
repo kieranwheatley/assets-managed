@@ -357,7 +357,7 @@ if (! function_exists('trait_uses_recursive')) {
     /**
      * Returns all traits used by a trait and its traits.
      *
-     * @param  string  $trait
+     * @param  object|string  $trait
      * @return array
      */
     function trait_uses_recursive($trait)
@@ -376,10 +376,14 @@ if (! function_exists('transform')) {
     /**
      * Transform the given value if it is present.
      *
-     * @param  mixed  $value
-     * @param  callable  $callback
-     * @param  mixed  $default
-     * @return mixed|null
+     * @template TValue of mixed
+     * @template TReturn of mixed
+     * @template TDefault of mixed
+     *
+     * @param  TValue  $value
+     * @param  callable(TValue): TReturn  $callback
+     * @param  TDefault|callable(TValue): TDefault|null  $default
+     * @return ($value is empty ? ($default is null ? null : TDefault) : TReturn)
      */
     function transform($value, callable $callback, $default = null)
     {
