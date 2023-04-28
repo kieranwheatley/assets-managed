@@ -15,11 +15,11 @@
             <br>
             <div class="row">
                 <div class="col">
-                    <x-adminlte-input name="hardware_id" label="Hardware Asset ID" value="{{ $hardware->id }}"
+                    <x-adminlte-input name="hardware_id" label="Hardware Asset ID*" value="{{ $hardware->id }}"
                         fgroup-class="col-md-9" readonly />
                 </div>
                 <div class="col">
-                    <x-adminlte-input name="host_name" label="Host Name" value="{{ $hardware->host_name }}"
+                    <x-adminlte-input name="host_name" label="Host Name*" value="{{ $hardware->host_name }}"
                         fgroup-class="col-md-9" readonly />
                 </div>
             </div>
@@ -27,19 +27,19 @@
                 <div class="col">
                     {{-- <x-adminlte-input name="company" label="Manufacturer" value="{{ $hardware->manufacturer->name }}"
                         fgroup-class="col-md-9" disable-feedback /> --}}
-                    <x-adminlte-select name="company" label="Manufacturer" fgroup-class="col-md-9">
+                    <x-adminlte-select name="company" label="Manufacturer*" fgroup-class="col-md-9">
                         <x-adminlte-options :options="$manufacturers" placeholder="{{ $hardware->manufacturer->name }}"
                             selected="{{ $hardware->manufacturer->id }}" />
                     </x-adminlte-select>
                 </div>
                 <div class="col">
-                    <x-adminlte-input name="model" label="Model" value="{{ $hardware->model }}" fgroup-class="col-md-9"
+                    <x-adminlte-input name="model" label="Model*" value="{{ $hardware->model }}" fgroup-class="col-md-9"
                         disable-feedback />
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    <x-adminlte-input name="serial_number" label="Serial Number" value="{{ $hardware->serial_number }}"
+                    <x-adminlte-input name="serial_number" label="Serial Number*" value="{{ $hardware->serial_number }}"
                         fgroup-class="col-md-9" />
                 </div>
                 <div class="col">
@@ -48,7 +48,7 @@
                         $config = ['format' => 'YYYY-MM-DD'];
                     @endphp
                     <x-adminlte-input-date name="purchase_date" :config="$config" placeholder="Choose a date..."
-                        label="Purchase Date" fgroup-class="col-md-9" value="{{ $hardware->purchase_date }}" input
+                        label="Purchase Date*" fgroup-class="col-md-9" value="{{ $hardware->purchase_date }}" input
                         name="purchase_date">
                         <x-slot name="appendSlot">
                             <div class="input-group-text bg-gradient-danger">
@@ -64,7 +64,7 @@
                         $config = ['format' => 'YYYY-MM-DD'];
                     @endphp
                     <x-adminlte-input-date name="warranty_date" :config="$config" placeholder="Choose a date..."
-                        label="Warranty Expiry Date" fgroup-class="col-md-9" value="{{ $hardware->warranty_date }}" input
+                        label="Warranty Expiry Date*" fgroup-class="col-md-9" value="{{ $hardware->warranty_date }}" input
                         name="warranty_date">
                         <x-slot name="appendSlot">
                             <div class="input-group-text bg-gradient-danger">
@@ -74,7 +74,7 @@
                     </x-adminlte-input-date>
                 </div>
                 <div class="col">
-                    <x-adminlte-input name="purchase_price" label="Purchase Price"
+                    <x-adminlte-input name="purchase_price" label="Purchase Price*"
                         value="{{ number_format($hardware->purchase_price, 2) }}" fgroup-class="col-md-9"
                         disable-feedback />
                 </div>
@@ -87,7 +87,7 @@
                     </x-adminlte-select>
                 </div> --}}
                 <div class="col">
-                    <x-adminlte-select name="lifecycle_phase" label="Lifecycle Phase" fgroup-class="col-md-9">
+                    <x-adminlte-select name="lifecycle_phase" label="Lifecycle Phase*" fgroup-class="col-md-9">
                         <x-adminlte-options :options="[
                             'active' => 'Active',
                             'retired' => 'Retired',
@@ -98,7 +98,7 @@
                     </x-adminlte-select>
                 </div>
                 <div class="col">
-                    <x-adminlte-select name="location" label="Location" fgroup-class="col-md-9">
+                    <x-adminlte-select name="location" label="Location*" fgroup-class="col-md-9">
                         <x-adminlte-options :options="$locations" placeholder="{{ $hardware->locationName->name }}"
                             selected="{{ $hardware->locationName->id }}" />
                     </x-adminlte-select>

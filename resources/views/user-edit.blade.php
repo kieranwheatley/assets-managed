@@ -13,7 +13,7 @@
             <br>
             <div class="row">
                 <div class="col">
-                    <x-adminlte-input name="userID" label="User ID" value="{{ $user->id }}" fgroup-class="col-md-9"
+                    <x-adminlte-input name="userID" label="User ID*" value="{{ $user->id }}" fgroup-class="col-md-9"
                         readonly />
                 </div>
                 <div class="col">
@@ -21,28 +21,28 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <x-adminlte-input name="first_name" label="First Name" value="{{ $user->first_name }}"
+                    <x-adminlte-input name="first_name" label="First Name*" value="{{ $user->first_name }}"
                         fgroup-class="col-md-9" disable-feedback />
                 </div>
                 <div class="col">
-                    <x-adminlte-input name="last_name" label="Last Name" value="{{ $user->last_name }}"
+                    <x-adminlte-input name="last_name" label="Last Name*" value="{{ $user->last_name }}"
                         fgroup-class="col-md-9" disable-feedback />
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    <x-adminlte-input type="email" name="email" label="Email" value="{{ $user->email }}"
+                    <x-adminlte-input type="email" name="email" label="Email*" value="{{ $user->email }}"
                         fgroup-class="col-md-9" />
                 </div>
                 <div class="col">
-                    <x-adminlte-input name="position" label="Position" value="{{ $user->position }}" fgroup-class="col-md-9"
-                        disable-feedback />
+                    <x-adminlte-input name="position" label="Position*" value="{{ $user->position }}"
+                        fgroup-class="col-md-9" disable-feedback />
                 </div>
             </div>
             <div class="row">
 
                 <div class="col">
-                    <x-adminlte-button class="btn-flat" type="submit" label="Update" theme="success"
+                    <x-adminlte-button class="btn-flat" type="submit" label="Update User" theme="success"
                         icon="fas fa-lg fa-save" />
                 </div>
         </form>
