@@ -66,7 +66,7 @@ class HardwareAssetsController extends Controller
               {
                      $hardware->has_CVE = true;
                      $hardware->CVE_details = json_encode($response['vulnerabilities']);
-                     //$hardware->highest_CVE_severity = $response['result']['CVE_Items'][0]['impact']['baseMetricV3']['cvssV3']['baseSeverity'];
+                     // Add highest severity score here
               }
               else
               {
