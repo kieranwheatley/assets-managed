@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Assets Managed')
+@section('title', 'All Locations')
 
 @section('content_header')
     <h1>Locations</h1>

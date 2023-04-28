@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Assets Managed')
+@section('title', 'All Companies')
 
 @section('content_header')
     <h1>Companies</h1>
@@ -10,15 +10,7 @@
 
     {{-- Setup data for datatables --}}
     @php
-<<<<<<< HEAD
         $heads = ['ID', 'Company Name', 'Actions'];
-=======
-        $heads = [
-            'ID',
-            'Company Name',
-            'Actions',
-        ];
->>>>>>> master
         
         $btnEdit = '<button class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit" >
                         <i class="fa fa-lg fa-fw fa-pen"></i>
@@ -55,21 +47,13 @@
         $config = [
             'data' => $data,
             'order' => [[1, 'asc']],
-<<<<<<< HEAD
             'columns' => [null, null, ['orderable' => true]],
-=======
-            'columns' => [null, null, null, ['orderable' => false]],
->>>>>>> master
         ];
         
     @endphp
 
     {{-- Minimal example / fill data using the component slot --}}
-<<<<<<< HEAD
     <x-adminlte-datatable id="companies_table" :heads="$heads" :config="$config" theme="light" striped hoverable>
-=======
-    <x-adminlte-datatable id="table5" :heads="$heads" :config="$config" theme="dark" striped hoverable>
->>>>>>> master
         @foreach ($config['data'] as $row)
             <tr>
                 @foreach ($row as $cell)
