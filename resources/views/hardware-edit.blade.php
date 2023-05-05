@@ -111,14 +111,26 @@
                         value="{{ $hardware->assignedUser->first_name }} {{ $hardware->assignedUser->last_name }}"
                         fgroup-class="col-md-9" disable-feedback />
                 </div> --}}
-                <div class="col">
+                {{-- <div class="col">
                     <x-adminlte-select name="assigned_to">
                         <x-adminlte-options :options="$users" disabled="1" placeholder=" " />
                     </x-adminlte-select>
+                </div> --}}
+                <div class="col">
+                    <x-adminlte-select name="assigned_to" label="Assigned To*" fgroup-class="col-md-9">
+                        @if (is_null($hardware->assignedUser))
+                            <x-adminlte-options :options="$users" placeholder="Unassigned" />
+                        @else
+                            <x-adminlte-options :options="$users"
+                                placeholder="{{ $hardware->assignedUser->first_name }} {{ $hardware->assignedUser->last_name }}"
+                                selected="{{ $hardware->assignedUser->id }}" />
+                        @endif
+                    </x-adminlte-select>
                 </div>
 
+
                 <div class="col">
-                    egfegeg
+
                 </div>
             </div>
             <div class="row">

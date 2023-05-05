@@ -48,8 +48,9 @@ class HardwareAssetsController extends Controller
               $hardware->companies = request('company');
               $hardware->model = request('model');
               $hardware->serial_number = request('serial_number');
-              $hardware->purchase_date = request('purchase_date');
-              $hardware->warranty_date = request('warranty_date');
+
+              $hardware->purchase_date = Carbon::createFromFormat('d/m/Y', request('purchase_date'))->format('Y-m-d');
+              $hardware->warranty_date = Carbon::createFromFormat('d/m/Y', request('warranty_date'))->format('Y-m-d');
               $hardware->purchase_price = str_replace(',', '', request('purchase_price'));
               //$hardware->version = request('operating_system');
               $hardware->version = "1";
@@ -60,7 +61,7 @@ class HardwareAssetsController extends Controller
               $company_name = Companies::where('id', request('company'))->get();
               $company = $company_name[0]->name;
 
-              $response = $this->checkCVE($company, request('model'), request('serial_number'));
+              $response = $this->checkCVE($company, request('model'));
               //dd($response);
               if ($response['totalResults'] > 0)
               {
@@ -75,6 +76,7 @@ class HardwareAssetsController extends Controller
                      $hardware->highest_CVE_severity = null;
               }
               //dd($hardware->CVE_details);
+              $hardware->verified = 0;
               $hardware->save();
               return redirect('/hardware')->with('success', 'Hardware asset has been added');
        }
@@ -118,8 +120,10 @@ class HardwareAssetsController extends Controller
 
        function add() 
        {
+              logger("Incoming Hardware asset");
               $hardware = new HardwareAssets();
               $hardware->asset = "1";
+              //$hardware->companies = "1";
               $hardware->companies = "1";
               $hardware->model = request('model');
               $hardware->serial_number = "19549-49503-494390-MA";
@@ -133,10 +137,10 @@ class HardwareAssetsController extends Controller
               $hardware->purchase_date = Carbon::now();
               $hardware->warranty_date = Carbon::now();
               $hardware->encryption_status = request('encryption_status');
-              $hardware->users = "2";
+              $hardware->uuid = request('uuid');
+              $hardware->verified = 0;
               $hardware->save();
-
-              logger("Test");
+              
               return ["Result" => "Success"];
        }
 

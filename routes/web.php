@@ -78,9 +78,10 @@ Route::get('/hardware', function () {
     return view('hardware', ['hardware' => HardwareAssets::all()]);
 })->name('hardware')->middleware('auth');
 
+// Get = Load edit page || Put = Update record || Delete = Delete record
 Route::get('user-edit/{id}', 'App\Http\Controllers\usersController@edit')->middleware('auth');
-
 Route::put('update-user/{id}', 'App\Http\Controllers\usersController@update')->middleware('auth');
+
 
 Route::get('hardware-edit/{id}', [HardwareAssetsController::class, 'edit'])->middleware('auth');
 
@@ -96,6 +97,8 @@ Route::post('insert-user', [usersController::class, 'insert'])->middleware('auth
 
 Route::get('hardware-delete/{id}', [HardwareAssetsController::class, 'remove'])->middleware('auth');
 
+Route::get('user-delete/{id}', [usersController::class, 'remove'])->middleware('auth');
+
 Route::get('/locations', function () {
     return view('locations', ['locations' => App\Models\Locations::all()]);
 })->name('locations')->middleware('auth');
@@ -104,7 +107,13 @@ Route::get('locations-add', function () {
     return view('locations-add');
 })->name('locations-add')->middleware('auth');
 
+// Post = Create New || Get = Load edit page || Put = Update record || Delete = Delete record
 Route::post('insert-location', 'App\Http\Controllers\LocationsController@insert')->middleware('auth');
+Route::get('location-edit/{id}', 'App\Http\Controllers\LocationsController@edit')->middleware('auth');
+Route::put('update-location/{id}', 'App\Http\Controllers\LocationsController@update')->middleware('auth');
+Route::get('location-delete/{id}', 'App\Http\Controllers\LocationsController@remove')->middleware('auth');
+
+
 
 Route::get('/companies', function () {
     return view('companies', ['companies' => App\Models\Companies::all()]);
@@ -114,7 +123,12 @@ Route::get('companies-add', function () {
     return view('companies-add');
 })->name('companies-add')->middleware('auth');
 
+
+// Post = Create New || Get = Load edit page || Put = Update record || Delete = Delete record
 Route::post('insert-company', 'App\Http\Controllers\CompaniesController@insert')->middleware('auth');
+Route::get('company-edit/{id}', 'App\Http\Controllers\CompaniesController@edit')->middleware('auth');
+Route::put('update-company/{id}', 'App\Http\Controllers\CompaniesController@update')->middleware('auth');
+Route::get('company-delete/{id}', 'App\Http\Controllers\CompaniesController@remove')->middleware('auth');
 
 Auth::routes();
 

@@ -40,8 +40,17 @@
                 <i class="fa fa-lg fa-fw fa-pen"></i>
             </button></a>';
         }
+        function deleteUserBtn($user)
+        {
+            $url = url('user-delete/' . $user->id);
+            return '<a href="' .
+                $url .
+                '"><button class="btn btn-xs btn-default text-danger mx-1 shadow"  title="Delete" >
+                <i class="fa fa-lg fa-fw fa-trash"></i>
+            </button></a>';
+        }
         foreach ($users as $user) {
-            $data = array_merge($data, [[$user->id, $user->first_name, $user->last_name, $user->position, $user->email, '<nobr>' . editUserBtn($user) . $btnDelete . '</nobr>']]);
+            $data = array_merge($data, [[$user->id, $user->first_name, $user->last_name, $user->position, $user->email, '<nobr>' . editUserBtn($user) . deleteUserBtn($user) . '</nobr>']]);
         }
         $config = [
             'data' => $data,

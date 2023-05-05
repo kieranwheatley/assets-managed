@@ -43,7 +43,11 @@
         }
         foreach ($hardware as $hardware) {
             $has_CVE = $hardware->has_CVE ? 'Yes' : 'No';
-            $full_name = $hardware->assignedUser->first_name . ' ' . $hardware->assignedUser->last_name;
+            if ($hardware->assignedUser == null) {
+                $full_name = 'Unassigned';
+            } else {
+                $full_name = $hardware->assignedUser->first_name . ' ' . $hardware->assignedUser->last_name;
+            }
             $cost = '£' . number_format($hardware->purchase_price, 2);
             $data = array_merge($data, [[$hardware->id, $hardware->manufacturer->name, $hardware->model, $hardware->serial_number, $full_name, $hardware->locationName->name, ucfirst(trans($hardware->lifecycle_phase)), $cost, $has_CVE, '<nobr>' . editHardwareBtn($hardware) . deleteHardwareBtn($hardware) . '</nobr>']]);
         }

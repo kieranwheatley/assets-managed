@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\HardwareAssets;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class usersController extends Controller
 {
@@ -39,15 +40,21 @@ class usersController extends Controller
               return view('user-add');
      }
 
-     public function insert(Request $request)
+     public static function insert(Request $request)
      {
        $user = new User();
        $user->first_name = $request->input('first_name');
        $user->last_name = $request->input('last_name');
        $user->email = $request->input('email');
        $user->position = $request->input('position');
-       $user->password = $request->input('password');
+       $user->password = Hash::make($request->input('password'));
        $user->save();
        return redirect('/')->with('success','User added!');
      }
+     public function remove($id)
+       {
+              $user = User::find($id);
+              $user->delete();
+              return redirect('/users')->with('success', 'User account has been removed');
+       }
 }
