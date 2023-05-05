@@ -314,33 +314,31 @@ return [
         ],
 
         // Sidebar items:
-        // [
-        //     'type' => 'sidebar-menu-search',
-        //     'text' => 'search',
-        // ],
+        /*
+         [
+             'type' => 'sidebar-menu-search',
+             'text' => 'search',
+         ],
+         */
         [
             'text' => 'Dashboard',
             'url'  => 'dashboard',
             'icon'  => 'fa fa-home',
         ],
-        ['header' => 'Assets'],
-        // [
-        //     'text'        => 'All assets',
-        //     'url'         => 'assets',
-        //     'icon'        => 'far fa-fw fa-file',
-        //     //'label'       => 4,
-        //     'label_color' => 'success',
-        // ],
+        ['header' => 'Hardware Assets'],
         [
-            'text' => 'Hardware Assets',
+            'text' => 'All Hardware Assets',
             'url'  => 'hardware',
-            'icon'  => 'fa fa-laptop',
+            'icon' => 'fas fa-fw fa-laptop',
         ],
         [
-            'text' => 'Software Assets',
-            'url'  => 'software',
-            'icon' => 'fa fa-code',
+            'text' => 'Add Hardware Asset',
+            'url'  => 'http://localhost/hardware/add',
+            'icon' => 'fas fa-fw fa-plus',
         ],
+
+
+
         ['header' => 'Users'],
         [
             'text' => 'All Users',
