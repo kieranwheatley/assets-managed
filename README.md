@@ -39,6 +39,9 @@ The objectives of this project set out to achieve the aim were:
 - **[Colorlib](https://colorlib.com/)** - Creator of AdminLTE3 template
 - **[Jeroen Noten](https://github.com/jeroennoten)** - Created the AdminLTE3 laravel integration, used for the web application
 - **[Enlightn Software.](https://www.laravel-enlightn.com/)** - Tool used for checking security, performance, and reliability 
+- **[National Institute of Standards and Technology](https://www.nist.gov/)** - Utilising the NIST vulnerability API
+- **[Mapbox](https://www.mapbox.com/)** - Implemented Mapbox for displaying asset locations on a map
+- **[Chart.js](https://www.chartjs.org/)** - Used for data visualisation
 
 ## Security Vulnerabilities
 
