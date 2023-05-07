@@ -1,0 +1,26 @@
+"id";"migration";"batch"
+1;"2014_10_12_000000_create_users_table";1
+28;"2014_10_12_000000_create_users_table copy";2
+29;"2014_10_12_100000_create_password_resets_table";2
+30;"2019_08_19_000000_create_failed_jobs_table";2
+31;"2019_12_14_000001_create_personal_access_tokens_table";2
+32;"2022_11_15_130641_create_hardware_assets_table";2
+33;"2022_11_15_130909_create_software_assets_table";2
+34;"2022_11_15_131004_create_software_model_table";2
+35;"2022_11_15_131022_create_asset_table";2
+36;"2022_11_15_131035_create_location_table";2
+37;"2022_11_15_131054_create_company_table";2
+38;"2022_12_08_130114_create_test_assets_table";2
+39;"2022_12_12_130211_add_updated_to_hardware_assets_table";2
+40;"2022_12_13_121122_create_operating_systems_table";2
+41;"2022_12_13_122023_add_fields_operating_systems";2
+42;"2022_12_13_130033_edit_hardware_assets_foreign_key";2
+43;"2023_02_03_154044_add_colums_to_locations";2
+44;"2023_02_27_150229_update_hardware_fields";2
+45;"2023_02_28_112406_add_hardware_encryption";2
+46;"2023_03_14_171238_add_user_authenticated";3
+47;"2023_04_12_214434_add__c_v_e_details";4
+48;"2023_04_25_145919_hardware_data_classifications_add";5
+49;"2023_04_27_171854_add_uuid_and_verified";6
+50;"2014_10_12_100000_create_password_reset_tokens_table";7
+51;"2023_05_05_192826_nullable_hardware_assigned";8
