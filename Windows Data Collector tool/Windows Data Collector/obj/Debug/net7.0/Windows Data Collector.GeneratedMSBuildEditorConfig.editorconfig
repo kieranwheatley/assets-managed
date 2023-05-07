@@ -8,4 +8,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Windows_Data_Collector
-build_property.ProjectDir = C:\Users\Kieran\source\repos\Windows Data Collector\Windows Data Collector\
+build_property.ProjectDir = \\wsl.localhost\Ubuntu\home\kieran\assets-managed\Windows Data Collector tool\Windows Data Collector\

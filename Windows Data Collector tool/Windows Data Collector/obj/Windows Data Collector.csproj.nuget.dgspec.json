@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Kieran\\source\\repos\\Windows Data Collector\\Windows Data Collector\\Windows Data Collector.csproj": {}
+    "\\\\wsl.localhost\\Ubuntu\\home\\kieran\\assets-managed\\Windows Data Collector tool\\Windows Data Collector\\Windows Data Collector.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Kieran\\source\\repos\\Windows Data Collector\\Windows Data Collector\\Windows Data Collector.csproj": {
+    "\\\\wsl.localhost\\Ubuntu\\home\\kieran\\assets-managed\\Windows Data Collector tool\\Windows Data Collector\\Windows Data Collector.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kieran\\source\\repos\\Windows Data Collector\\Windows Data Collector\\Windows Data Collector.csproj",
+        "projectUniqueName": "\\\\wsl.localhost\\Ubuntu\\home\\kieran\\assets-managed\\Windows Data Collector tool\\Windows Data Collector\\Windows Data Collector.csproj",
         "projectName": "Windows Data Collector",
-        "projectPath": "C:\\Users\\Kieran\\source\\repos\\Windows Data Collector\\Windows Data Collector\\Windows Data Collector.csproj",
+        "projectPath": "\\\\wsl.localhost\\Ubuntu\\home\\kieran\\assets-managed\\Windows Data Collector tool\\Windows Data Collector\\Windows Data Collector.csproj",
         "packagesPath": "C:\\Users\\Kieran\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kieran\\source\\repos\\Windows Data Collector\\Windows Data Collector\\obj\\",
+        "outputPath": "\\\\wsl.localhost\\Ubuntu\\home\\kieran\\assets-managed\\Windows Data Collector tool\\Windows Data Collector\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Kieran\\AppData\\Roaming\\NuGet\\NuGet.Config",

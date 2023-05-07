@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "E2aiAD6M11Rih5B8HvMspPH9hTSi1wRd8DItgAsrUQcFpCpZxS/OnJfeor+MzHTWYXjDkGy5rZ6N0MqmQqvBRg==",
+  "dgSpecHash": "zb3kCk/luhtiIwmH+zzMu5xilM6VIGLo0zzCwioY198M+PXXqHWxSUAJPoyuSPvpgEbIbzxHqC6ExfR8tSiv3g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Kieran\\source\\repos\\Windows Data Collector\\Windows Data Collector\\Windows Data Collector.csproj",
+  "projectFilePath": "\\\\wsl.localhost\\Ubuntu\\home\\kieran\\assets-managed\\Windows Data Collector tool\\Windows Data Collector\\Windows Data Collector.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
