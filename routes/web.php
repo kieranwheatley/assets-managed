@@ -41,7 +41,7 @@ Route::get('/', function () {
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('home', function () {
-    return view('home');
+    return redirect('/dashboard');
 })->name('home')->middleware('auth');
 
 Route::get('/dashboard', function () {
