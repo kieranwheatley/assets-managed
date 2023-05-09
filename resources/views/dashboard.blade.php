@@ -277,15 +277,15 @@
     </body>
 
     <script>
-        mapboxgl.accessToken =
-            'pk.eyJ1Ijoia2llcmFudzEyMyIsImEiOiJjbGRvbmlwZWowMWh0M25vNHpqM2l2aHNkIn0.LK_Zzg5x6OGQG6AJjMAIdQ';
+        //mapboxgl.accessToken = '';
+        const API_KEY = '{{ env('MAPBOX_TOKEN') }}';
 
         let map = new mapboxgl.Map({
             container: 'map',
             center: [-4.139329067763081, 50.37523227813306],
             zoom: 16.5,
             style: 'mapbox://styles/mapbox/satellite-streets-v12',
-            accessToken: 'pk.eyJ1Ijoia2llcmFudzEyMyIsImEiOiJjbGRvbmlwZWowMWh0M25vNHpqM2l2aHNkIn0.LK_Zzg5x6OGQG6AJjMAIdQ'
+            accessToken: API_KEY
         });
         map.on('style.load', () => {
             const layers = map.getStyle().layers;
