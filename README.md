@@ -43,10 +43,19 @@ The objectives of this project set out to achieve the aim were:
 - **[Mapbox](https://www.mapbox.com/)** - Implemented Mapbox for displaying asset locations on a map
 - **[Chart.js](https://www.chartjs.org/)** - Used for data visualisation
 
+## Installation
+
+Please note if you install this application, you will need to get an API key from <https://www.mapbox.com/> which must be placed in your .ENV file in the ```MAPBOX_TOKEN field```. Without this, the assets map will not work.
+
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please open an issue with as much detail as possible. All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within this application, please open an issue with as much detail as possible. All security vulnerabilities will be promptly addressed.
 
 ## License
 
-Assets? Managed. is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Assets? Managed. is licensed under a [Creative Commons Attribution 4.0 International License][cc-by].
+
+[![CC BY 4.0][cc-by-shield]][cc-by]
+
+[cc-by]: http://creativecommons.org/licenses/by/4.0/
+[cc-by-shield]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
