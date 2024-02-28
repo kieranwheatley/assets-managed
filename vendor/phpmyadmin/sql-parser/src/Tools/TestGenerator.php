@@ -11,9 +11,8 @@ use PhpMyAdmin\SqlParser\Exceptions\ParserException;
 use PhpMyAdmin\SqlParser\Lexer;
 use PhpMyAdmin\SqlParser\Parser;
 use PhpMyAdmin\SqlParser\Token;
-use PhpMyAdmin\SqlParser\UtfString;
-use Zumba\JsonSerializer\JsonSerializer;
 
+use function dirname;
 use function file_exists;
 use function file_get_contents;
 use function file_put_contents;
@@ -33,6 +32,7 @@ use function substr;
 
 use const JSON_PRESERVE_ZERO_FRACTION;
 use const JSON_PRETTY_PRINT;
+use const JSON_UNESCAPED_SLASHES;
 use const JSON_UNESCAPED_UNICODE;
 
 /**
@@ -46,7 +46,7 @@ class TestGenerator
      * @param string $query the query to be analyzed
      * @param string $type  test's type (may be `lexer` or `parser`)
      *
-     * @return array<string, string|Lexer|Parser|array<string, array<int, array<int, int|string|Token>>>|null>
+     * @return array<string, string|Lexer|Parser|array<string, array<int, array<int, int|string|Token|null>>>|null>
      */
     public static function generate($query, $type = 'parser')
     {
@@ -72,8 +72,6 @@ class TestGenerator
 
         /**
          * Parser's errors.
-         *
-         * @var array<int, array<int, int|string|Token>>
          */
         $parserErrors = [];
 
@@ -164,29 +162,28 @@ class TestGenerator
             // set context
             $mariaDbVersion = (int) substr($input, $mariaDbPos + 9, 6);
             Context::load('MariaDb' . $mariaDbVersion);
+        } else {
+            // Load the default context to be sure there is no side effects
+            Context::load('');
         }
 
         $test = static::generate($query, $type);
 
         // unset mode, reset to default every time, to be sure
         Context::setMode();
-        $serializer = new JsonSerializer();
+        $serializer = new CustomJsonSerializer();
         // Writing test's data.
         $encoded = $serializer->serialize($test);
 
-        /**
-         * Can not decode null char in keys.
-         *
-         * @see UtfString::$asciiMap
-         */
-        if (str_contains($encoded, '"asciiMap":{"\u0000":0,"')) {
-            $encoded = str_replace('"asciiMap":{"\u0000":0,"', '"asciiMap":{"', $encoded);
-        }
-
-        $encoded = json_encode(
+        $encoded = (string) json_encode(
             json_decode($encoded),
-            JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION
+            JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION | JSON_UNESCAPED_SLASHES
         );
+
+        // Remove the project path from .out file, it changes for each dev
+        $projectFolder = dirname(__DIR__, 2);// Jump to root
+        $encoded = str_replace($projectFolder, '<project-root>', $encoded);
+
         file_put_contents($output, $encoded);
 
         // Dumping test's data in human readable format too (if required).

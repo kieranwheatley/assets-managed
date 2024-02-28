@@ -94,6 +94,27 @@ class PHPStan
     }
 
     /**
+     * Parse the PHPStan analysis and get the results matching the pattern.
+     *
+     * @param  string|array  $pattern
+     * @return array
+     */
+    public function pregMatch($pattern)
+    {
+        if (! isset($this->result['files'])) {
+            return [];
+        }
+
+        return collect($this->result['files'])->map(function ($fileAnalysis, $path) use ($pattern) {
+            return collect($fileAnalysis['messages'])->filter(function ($message) use ($pattern) {
+                return preg_match($pattern, $message['message']) === 1;
+            })->map(function ($message) use ($path) {
+                return new Trace($path, $message['line'], $message['message']);
+            })->flatten()->toArray();
+        })->filter()->flatten()->toArray();
+    }
+
+    /**
      * Run the PHPStan analysis and get the output
      *
      * @param  string|array  $paths
@@ -102,14 +123,16 @@ class PHPStan
      */
     public function start($paths, $configPath = null)
     {
-        if (file_exists($stubFile = collect([$this->rootPath, 'vendor' , 'nunomaduro', 'larastan', 'stubs', 'Http', 'Request.stub'])->join(DIRECTORY_SEPARATOR))) {
-            // Neither PHPStan nor Larastan supports stub overriding, so we have no choice but to overwrite the Request.stub file in the vendor/nunomaduro/larastan/stubs/Http directory
+        if (file_exists($stubFile = collect([$this->rootPath, 'vendor' , 'larastan', 'larastan', 'stubs', 'common', 'Http', 'Request.stub'])->join(DIRECTORY_SEPARATOR))) {
+            // Neither PHPStan nor Larastan supports stub overriding, so we have no choice but to overwrite the Request.stub file in the vendor/larastan/larastan/stubs/common/Http directory
             copy(collect([__DIR__, '..', 'stubs', 'Request.stub'])->join(DIRECTORY_SEPARATOR), $stubFile);
         }
 
         $configPath = $configPath ?? $this->configPath ?? (__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'phpstan.neon');
 
-        $options = ['analyse', '--configuration='.$configPath, '--error-format=json', '--no-progress'];
+        $options = ['analyse', '--configuration='.$configPath];
+
+        $options = array_merge($options, $this->getPHPStanOptions());
 
         foreach (Arr::wrap($paths) as $path) {
             $options[] = $path;
@@ -185,5 +208,24 @@ class PHPStan
         $this->rootPath = realpath($path);
 
         return $this;
+    }
+
+    /**
+     * Get default PHPStan runtime configurations.
+     *
+     * @return array
+     */
+    protected function getPHPStanOptions()
+    {
+        $result = [];
+
+        $configs = config('enlightn.phpstan', ['--error-format' => 'json', '--no-progress' => true]);
+
+        foreach ($configs as $name => $value) {
+            $option = is_bool($value) ? $name : implode('=', [$name, $value]);
+            array_push($result, $option);
+        }
+
+        return $result;
     }
 }

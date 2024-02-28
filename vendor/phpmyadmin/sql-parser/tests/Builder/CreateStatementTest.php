@@ -70,6 +70,17 @@ class CreateStatementTest extends TestCase
         );
     }
 
+    public function testBuilderWithComments(): void
+    {
+        $parser = new Parser('CREATE TABLE tab1 (`col1` TIMESTAMP /*!40100 DEFAULT NULL */)');
+        $stmt = $parser->statements[0];
+        $this->assertEquals(
+            // TODO: fix with https://github.com/phpmyadmin/sql-parser/issues/256
+            "CREATE TABLE tab1 (\n  `col1` timestamp DEFAULT NULL\n) ",
+            $stmt->build()
+        );
+    }
+
     public function testBuilderCompressed(): void
     {
         $parser = new Parser('CREATE TABLE users ( user_id int ) PAGE_COMPRESSED=1 PAGE_COMPRESSION_LEVEL=9;');
@@ -302,6 +313,20 @@ EOT
     public function testBuilderView(): void
     {
         $parser = new Parser(
+            'CREATE OR REPLACE VIEW xviewmytable  AS SELECT mytable.id '
+            . 'AS id, mytable.personid AS personid FROM mytable '
+            . 'WHERE (mytable.birth > \'1990-01-19\') GROUP BY mytable.personid  ;'
+        );
+        $stmt = $parser->statements[0];
+
+        $this->assertEquals(
+            'CREATE OR REPLACE VIEW xviewmytable  AS SELECT mytable.id '
+            . 'AS `id`, mytable.personid AS `personid` FROM mytable '
+            . 'WHERE (mytable.birth > \'1990-01-19\') GROUP BY mytable.personid ',
+            $stmt->build()
+        );
+
+        $parser = new Parser(
             'CREATE VIEW myView (vid, vfirstname) AS ' .
             'SELECT id, first_name FROM employee WHERE id = 1'
         );
@@ -506,7 +531,8 @@ EOT
     public function testBuilderCreateFunction(): void
     {
         $parser = new Parser(
-            'CREATE DEFINER=`root`@`localhost`'
+            'DELIMITER $$' . "\n"
+            . 'CREATE DEFINER=`root`@`localhost`'
             . ' FUNCTION `inventory_in_stock`(`p_inventory_id` INT) RETURNS tinyint(1)'
             . ' READS SQL DATA'
             . ' COMMENT \'My best function written by a friend\'\'s friend\''
@@ -649,6 +675,7 @@ EOT
     public function testBuilderRoutine(): void
     {
         $parser = new Parser(
+            'DELIMITER $$' . "\n" .
             'CREATE FUNCTION test (IN `i` INT) RETURNS VARCHAR ' .
             'BEGIN ' .
             'DECLARE name VARCHAR DEFAULT ""; ' .

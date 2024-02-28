@@ -44,6 +44,9 @@ class SelectStatementTest extends TestCase
             ['parser/parseSelect12'],
             ['parser/parseSelect13'],
             ['parser/parseSelect14'],
+            ['parser/parseSelect15'],
+            ['parser/parseSelect16'],
+            ['parser/parseSelectAggregateWithPartitionAndAlias'],
             ['parser/parseSelectErr1'],
             ['parser/parseSelectErr2'],
             ['parser/parseSelectNested'],
@@ -87,6 +90,7 @@ class SelectStatementTest extends TestCase
             ['parser/parseSelectUnion'],
             ['parser/parseSelectUnion2'],
             ['parser/parseSelectWhere'],
+            ['parser/parseSelectWhereCollate'],
             ['parser/parseSelectIndexHint1'],
             ['parser/parseSelectIndexHint2'],
             ['parser/parseSelectOrderByIsNull'],
@@ -97,6 +101,10 @@ class SelectStatementTest extends TestCase
             ['parser/parseSelectWithParenthesis'],
             ['parser/parseSelectOrderByComment'],
             ['parser/parseSelectOverAlias_mariadb_100600'],
+            ['parser/parseSelectGroupBy'],
+            ['parser/parseSelectGroupByErr'],
+            ['parser/parseSelectGroupByWithComments'],
+            ['parser/parseTable1'],
         ];
     }
 }

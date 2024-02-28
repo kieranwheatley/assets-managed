@@ -11,8 +11,8 @@ use PhpMyAdmin\SqlParser\Lexer;
 use PhpMyAdmin\SqlParser\Parser;
 use PhpMyAdmin\SqlParser\Token;
 use PhpMyAdmin\SqlParser\TokensList;
+use PhpMyAdmin\SqlParser\Tools\CustomJsonSerializer;
 use PHPUnit\Framework\TestCase as BaseTestCase;
-use Zumba\JsonSerializer\JsonSerializer;
 
 use function file_get_contents;
 use function str_contains;
@@ -57,7 +57,7 @@ abstract class TestCase extends BaseTestCase
      * @psalm-return (
      *     $obj is Lexer
      *     ? list<array{string, string, int, int}>
-     *     : list<array{string, Token, int}>
+     *     : list<array{string, Token|null, int}>
      * )
      */
     public function getErrorsAsArray($obj): array
@@ -96,7 +96,7 @@ abstract class TestCase extends BaseTestCase
         $serializedData = file_get_contents('tests/data/' . $name . '.out');
         $this->assertIsString($serializedData);
 
-        $serializer = new JsonSerializer();
+        $serializer = new CustomJsonSerializer();
         $data = $serializer->unserialize($serializedData);
 
         $this->assertIsArray($data);

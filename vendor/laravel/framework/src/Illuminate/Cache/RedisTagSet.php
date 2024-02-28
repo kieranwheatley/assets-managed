@@ -2,6 +2,7 @@
 
 namespace Illuminate\Cache;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Support\LazyCollection;
 
 class RedisTagSet extends TagSet
@@ -10,13 +11,13 @@ class RedisTagSet extends TagSet
      * Add a reference entry to the tag set's underlying sorted set.
      *
      * @param  string  $key
-     * @param  int  $ttl
+     * @param  int|null  $ttl
      * @param  string  $updateWhen
      * @return void
      */
-    public function addEntry(string $key, int $ttl = 0, $updateWhen = null)
+    public function addEntry(string $key, int $ttl = null, $updateWhen = null)
     {
-        $ttl = $ttl > 0 ? now()->addSeconds($ttl)->getTimestamp() : -1;
+        $ttl = is_null($ttl) ? -1 : Carbon::now()->addSeconds($ttl)->getTimestamp();
 
         foreach ($this->tagIds() as $tagKey) {
             if ($updateWhen) {
@@ -72,7 +73,7 @@ class RedisTagSet extends TagSet
     {
         $this->store->connection()->pipeline(function ($pipe) {
             foreach ($this->tagIds() as $tagKey) {
-                $pipe->zremrangebyscore($this->store->getPrefix().$tagKey, 0, now()->getTimestamp());
+                $pipe->zremrangebyscore($this->store->getPrefix().$tagKey, 0, Carbon::now()->getTimestamp());
             }
         });
     }
