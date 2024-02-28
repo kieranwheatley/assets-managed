@@ -11,10 +11,8 @@ namespace SebastianBergmann\Diff;
 
 final class Line
 {
-    public const ADDED = 1;
-
-    public const REMOVED = 2;
-
+    public const ADDED     = 1;
+    public const REMOVED   = 2;
     public const UNCHANGED = 3;
     private int $type;
     private string $content;
@@ -25,11 +23,42 @@ final class Line
         $this->content = $content;
     }
 
+    public function content(): string
+    {
+        return $this->content;
+    }
+
+    public function type(): int
+    {
+        return $this->type;
+    }
+
+    public function isAdded(): bool
+    {
+        return $this->type === self::ADDED;
+    }
+
+    public function isRemoved(): bool
+    {
+        return $this->type === self::REMOVED;
+    }
+
+    public function isUnchanged(): bool
+    {
+        return $this->type === self::UNCHANGED;
+    }
+
+    /**
+     * @deprecated
+     */
     public function getContent(): string
     {
         return $this->content;
     }
 
+    /**
+     * @deprecated
+     */
     public function getType(): int
     {
         return $this->type;

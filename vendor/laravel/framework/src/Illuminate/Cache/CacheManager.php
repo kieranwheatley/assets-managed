@@ -90,15 +90,15 @@ class CacheManager implements FactoryContract
 
         if (isset($this->customCreators[$config['driver']])) {
             return $this->callCustomCreator($config);
-        } else {
-            $driverMethod = 'create'.ucfirst($config['driver']).'Driver';
-
-            if (method_exists($this, $driverMethod)) {
-                return $this->{$driverMethod}($config);
-            } else {
-                throw new InvalidArgumentException("Driver [{$config['driver']}] is not supported.");
-            }
         }
+
+        $driverMethod = 'create'.ucfirst($config['driver']).'Driver';
+
+        if (method_exists($this, $driverMethod)) {
+            return $this->{$driverMethod}($config);
+        }
+
+        throw new InvalidArgumentException("Driver [{$config['driver']}] is not supported.");
     }
 
     /**
@@ -214,7 +214,8 @@ class CacheManager implements FactoryContract
             $config['table'],
             $this->getPrefix($config),
             $config['lock_table'] ?? 'cache_locks',
-            $config['lock_lottery'] ?? [2, 100]
+            $config['lock_lottery'] ?? [2, 100],
+            $config['lock_timeout'] ?? 86400,
         );
 
         return $this->repository($store->setLockConnection(
@@ -257,10 +258,14 @@ class CacheManager implements FactoryContract
             'endpoint' => $config['endpoint'] ?? null,
         ];
 
-        if (isset($config['key'], $config['secret'])) {
+        if (! empty($config['key']) && ! empty($config['secret'])) {
             $dynamoConfig['credentials'] = Arr::only(
-                $config, ['key', 'secret', 'token']
+                $config, ['key', 'secret']
             );
+        }
+
+        if (! empty($config['token'])) {
+            $dynamoConfig['credentials']['token'] = $config['token'];
         }
 
         return new DynamoDbClient($dynamoConfig);

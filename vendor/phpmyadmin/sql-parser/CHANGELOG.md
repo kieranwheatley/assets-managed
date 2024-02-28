@@ -1,5 +1,48 @@
 # Change Log
 
+## [5.9.x] - YYYY-MM-DD
+
+- Fix keywords not being recognized as table alias (#496)
+- Add `bin/sql-parser` executable file (#517)
+- Fix bind parameter in LIMIT OFFSET (#498)
+- Fix using ? as a parameter (#515)
+
+## [5.8.2] - 2023-09-19
+
+- Fix a regression with the ALTER operation (#511)
+
+## [5.8.1] - 2023-09-15
+
+- Fix `:=` was not recognized as an operator just like `=` (#306)
+- Fix `ALTER TABLE … MODIFY … ENUM('<reserved_keyword>')` is being wrongly parsed (#234)
+- Fix `ALTER TABLE … MODIFY … ENUM('<reserved_keyword>')` is being wrongly parsed (#478)
+- Fix MariaDB window function with alias gives bad linting errors (#283)
+- Fix unrecognized keyword `COLLATE` in `WHERE` clauses (#491)
+- Fix invalid hexadecimal prefix 0X (#508)
+
+## [5.8.0] - 2023-06-05
+
+- Fix `ALTER EVENT RENAME TO` to use expression instead of var (#419)
+- Fix incorrect order of operations to parse table/db called `` (#422)
+- Fix ALTER EVENT statement with DEFINER=user modifier fails to be parsed (#418)
+- Fix GROUP BY modifier WITH ROLLUP is treated as a syntax error and prevents export of SQL query results
+- Fix `TokensList::getPrevious` was not able to reach very first token (#428)
+- Fix `TransactionStatement::build()` "Call to a member function build() on null" when the transaction has no end
+- Fix MySQL-specific commands parsing (#226)
+- Fix `ALTER TABLE … RENAME COLUMN … TO …` is not understood by the parser/linter (#430)
+- Fix `PARTITION` syntax errors (#377)
+- Fix `ALTER USER` when used with `IDENTIFIED WITH/VIA/BY` option (#431)
+- Fix `COALESCE PARTITION` in `ALTER TABLE`, rather than `COALESCE` (#323)
+- Support `ALGORITHM` and `LOCK` options in `ALTER TABLE` statements (#319)
+- Fix way end of functions, procedures and triggers' bodies is identified (#438)
+- Fix `enclosed by` is not recognized by the parser when `fields` is in lower case (#236)
+- Support `KEY` on `CreateDefinition` (#330)
+- Fix `CALL` statements parsing (#372)
+- Implement support for `LEFT JOIN`, `JOIN`, `INNER JOIN` on `UpdateStatement` (#260)
+- Implement support for `TABLE` and `REPLACE` statements on `DESCRIBE` statements
+- Fix `DESCRIBE` to allow a schema.table syntax (#445)
+- Fix parsing insert queries with functions trims commas (#450)
+
 ## [5.7.0] - 2023-01-25
 
 * Performance improvement to use less the `nextToken()` function (#397)

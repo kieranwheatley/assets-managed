@@ -290,9 +290,11 @@ class FileStore implements Store, LockProvider
         // just return null. Otherwise, we'll get the contents of the file and get
         // the expiration UNIX timestamps from the start of the file's contents.
         try {
-            $expire = substr(
-                $contents = $this->files->get($path, true), 0, 10
-            );
+            if (is_null($contents = $this->files->get($path, true))) {
+                return $this->emptyPayload();
+            }
+
+            $expire = substr($contents, 0, 10);
         } catch (Exception) {
             return $this->emptyPayload();
         }
@@ -338,7 +340,7 @@ class FileStore implements Store, LockProvider
      * @param  string  $key
      * @return string
      */
-    protected function path($key)
+    public function path($key)
     {
         $parts = array_slice(str_split($hash = sha1($key), 2), 0, 2);
 

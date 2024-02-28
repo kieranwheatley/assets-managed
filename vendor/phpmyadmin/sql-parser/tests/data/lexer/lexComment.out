@@ -1,30 +1,8 @@
 {
-    "query": "# comment\nSELECT \/*!50000 STRAIGHT_JOIN *\/ col1 FROM table1, table2 \/* select query *\/\n-- comment\n-- comment 2",
+    "query": "# comment\nSELECT /*!50000 STRAIGHT_JOIN */ col1 FROM table1, table2 /* select query */\n-- comment\n-- comment 2",
     "lexer": {
         "@type": "PhpMyAdmin\\SqlParser\\Lexer",
-        "PARSER_METHODS": [
-            "parseDelimiter",
-            "parseWhitespace",
-            "parseNumber",
-            "parseComment",
-            "parseOperator",
-            "parseBool",
-            "parseString",
-            "parseSymbol",
-            "parseKeyword",
-            "parseLabel",
-            "parseUnknown"
-        ],
-        "KEYWORD_NAME_INDICATORS": [
-            "FROM",
-            "SET",
-            "WHERE"
-        ],
-        "OPERATOR_NAME_INDICATORS": [
-            ",",
-            "."
-        ],
-        "str": "# comment\nSELECT \/*!50000 STRAIGHT_JOIN *\/ col1 FROM table1, table2 \/* select query *\/\n-- comment\n-- comment 2",
+        "str": "# comment\nSELECT /*!50000 STRAIGHT_JOIN */ col1 FROM table1, table2 /* select query */\n-- comment\n-- comment 2",
         "len": 110,
         "last": 111,
         "list": {
@@ -68,8 +46,8 @@
                 },
                 {
                     "@type": "PhpMyAdmin\\SqlParser\\Token",
-                    "token": "\/*!50000",
-                    "value": "\/*!50000",
+                    "token": "/*!50000",
+                    "value": "/*!50000",
                     "keyword": null,
                     "type": 4,
                     "flags": 10,
@@ -104,8 +82,8 @@
                 },
                 {
                     "@type": "PhpMyAdmin\\SqlParser\\Token",
-                    "token": "*\/",
-                    "value": "*\/",
+                    "token": "*/",
+                    "value": "*/",
                     "keyword": null,
                     "type": 4,
                     "flags": 2,
@@ -203,8 +181,8 @@
                 },
                 {
                     "@type": "PhpMyAdmin\\SqlParser\\Token",
-                    "token": "\/* select query *\/",
-                    "value": "\/* select query *\/",
+                    "token": "/* select query */",
+                    "value": "/* select query */",
                     "keyword": null,
                     "type": 4,
                     "flags": 2,
@@ -259,7 +237,6 @@
             "count": 25,
             "idx": 0
         },
-        "DEFAULT_DELIMITER": ";",
         "delimiter": ";",
         "delimiterLen": 1,
         "strict": false,

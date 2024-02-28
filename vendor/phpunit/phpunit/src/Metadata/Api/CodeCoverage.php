@@ -63,8 +63,8 @@ final class CodeCoverage
                 throw new CodeCoverageException(
                     sprintf(
                         'More than one @coversDefaultClass annotation for class or interface "%s"',
-                        $className
-                    )
+                        $className,
+                    ),
                 );
             }
 
@@ -84,11 +84,15 @@ final class CodeCoverage
 
                 try {
                     $codeUnits = $codeUnits->mergeWith(
-                        $mapper->stringToCodeUnits($metadata->asStringForCodeUnitMapper())
+                        $mapper->stringToCodeUnits($metadata->asStringForCodeUnitMapper()),
                     );
                 } catch (InvalidCodeUnitException $e) {
                     if ($metadata->isCoversClass()) {
-                        $type = 'Class';
+                        if (interface_exists($metadata->className())) {
+                            $type = 'Interface';
+                        } else {
+                            $type = 'Class';
+                        }
                     } else {
                         $type = 'Function';
                     }
@@ -97,10 +101,10 @@ final class CodeCoverage
                         sprintf(
                             '%s "%s" is not a valid target for code coverage',
                             $type,
-                            $metadata->asStringForCodeUnitMapper()
+                            $metadata->asStringForCodeUnitMapper(),
                         ),
                         $e->getCode(),
-                        $e
+                        $e,
                     );
                 }
             } elseif ($metadata->isCovers()) {
@@ -112,8 +116,8 @@ final class CodeCoverage
                     throw new InvalidCoversTargetException(
                         sprintf(
                             'Trying to @cover interface "%s".',
-                            $target
-                        )
+                            $target,
+                        ),
                     );
                 }
 
@@ -127,10 +131,10 @@ final class CodeCoverage
                     throw new InvalidCoversTargetException(
                         sprintf(
                             '"@covers %s" is invalid',
-                            $target
+                            $target,
                         ),
                         $e->getCode(),
-                        $e
+                        $e,
                     );
                 }
             }
@@ -157,8 +161,8 @@ final class CodeCoverage
                 throw new CodeCoverageException(
                     sprintf(
                         'More than one @usesDefaultClass annotation for class or interface "%s"',
-                        $className
-                    )
+                        $className,
+                    ),
                 );
             }
 
@@ -178,11 +182,15 @@ final class CodeCoverage
 
                 try {
                     $codeUnits = $codeUnits->mergeWith(
-                        $mapper->stringToCodeUnits($metadata->asStringForCodeUnitMapper())
+                        $mapper->stringToCodeUnits($metadata->asStringForCodeUnitMapper()),
                     );
                 } catch (InvalidCodeUnitException $e) {
                     if ($metadata->isUsesClass()) {
-                        $type = 'Class';
+                        if (interface_exists($metadata->className())) {
+                            $type = 'Interface';
+                        } else {
+                            $type = 'Class';
+                        }
                     } else {
                         $type = 'Function';
                     }
@@ -191,10 +199,10 @@ final class CodeCoverage
                         sprintf(
                             '%s "%s" is not a valid target for code coverage',
                             $type,
-                            $metadata->asStringForCodeUnitMapper()
+                            $metadata->asStringForCodeUnitMapper(),
                         ),
                         $e->getCode(),
-                        $e
+                        $e,
                     );
                 }
             } elseif ($metadata->isUses()) {
@@ -212,10 +220,10 @@ final class CodeCoverage
                     throw new InvalidCoversTargetException(
                         sprintf(
                             '"@uses %s" is invalid',
-                            $target
+                            $target,
                         ),
                         $e->getCode(),
-                        $e
+                        $e,
                     );
                 }
             }
@@ -234,7 +242,7 @@ final class CodeCoverage
 
         foreach ($this->testCaseClassesIn($testSuite) as $testCaseClassName) {
             $codeUnits = $codeUnits->mergeWith(
-                $this->codeUnitsIgnoredBy($testCaseClassName)
+                $this->codeUnitsIgnoredBy($testCaseClassName),
             );
         }
 
@@ -292,19 +300,19 @@ final class CodeCoverage
         foreach (Registry::parser()->forClass($className) as $metadata) {
             if ($metadata instanceof IgnoreClassForCodeCoverage) {
                 $codeUnits = $codeUnits->mergeWith(
-                    $mapper->stringToCodeUnits($metadata->className())
+                    $mapper->stringToCodeUnits($metadata->className()),
                 );
             }
 
             if ($metadata instanceof IgnoreMethodForCodeCoverage) {
                 $codeUnits = $codeUnits->mergeWith(
-                    $mapper->stringToCodeUnits($metadata->className() . '::' . $metadata->methodName())
+                    $mapper->stringToCodeUnits($metadata->className() . '::' . $metadata->methodName()),
                 );
             }
 
             if ($metadata instanceof IgnoreFunctionForCodeCoverage) {
                 $codeUnits = $codeUnits->mergeWith(
-                    $mapper->stringToCodeUnits('::' . $metadata->functionName())
+                    $mapper->stringToCodeUnits('::' . $metadata->functionName()),
                 );
             }
         }
