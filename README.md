@@ -3,6 +3,14 @@
 
 Assets? Managed. is an asset management application which focuses on blending the business efficiency focuses of IT Asset Management and the risk detection and prevention focus of Information Security Management Systems. By using this tool, organisations can get a clear overview of all their assets with information allowing them to be tracked through their entire lifecycle. The tool also check for known vulnerabilities using the NIST Vulnerability API and has a Windows Data Collection tool. This tool can be installed on end-user devices and, when ran (ideally on boot), will automatically report compliance data about the device including: last boot time and the disk encryption status.
 
+### Screenshot showing the application dashboard:
+![Assets Managed - Dashboard](https://github.com/kieranwheatley/assets-managed/assets/56694341/c1953913-4b45-4e29-a5fc-cf2e7128693d)
+
+### Screenshot showing the 3D asset map, which identifies locations which contains assets with potential security risks:
+![Assets Managed - Map](https://github.com/kieranwheatley/assets-managed/assets/56694341/8d466c49-f215-4611-b132-285f24c27d0b)
+
+### Screenshot showing the (mock) hardware records table:
+![Assets Managed - Hardware](https://github.com/kieranwheatley/assets-managed/assets/56694341/41759a71-4bb0-4831-9227-471f370dbc13)
 
 
 ## Project Management
