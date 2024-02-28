@@ -138,7 +138,6 @@ class HardwareAssetsController extends Controller
               $hardware->warranty_date = Carbon::now();
               $hardware->encryption_status = request('encryption_status');
               $hardware->uuid = request('uuid');
-              $hardware->has_CVE = 0;
               $hardware->verified = 0;
               $hardware->save();
               
